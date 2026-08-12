@@ -91,7 +91,7 @@ export default function SearchBar({ placeholder, className, autoFocus }) {
           onKeyDown={onKeyDown}
           placeholder={placeholder || t('search.placeholder')}
           aria-label={t('search.aria')}
-          className="w-full rounded-full border border-sand-200 bg-white py-2.5 pl-11 pr-10 text-sm text-ink-900 shadow-soft outline-none transition placeholder:text-ink-400 focus:border-brand-300 focus:ring-2 focus:ring-brand-100 dark:bg-sand-100"
+          className="w-full rounded-full border border-sand-200 bg-white py-2.5 pl-11 pr-10 text-sm text-ink-900 shadow-soft outline-none transition placeholder:text-ink-400 focus:border-brand-300 focus:ring-2 focus:ring-brand-100 dark:border-sand-300 dark:bg-sand-200"
         />
         {showLoading && (
           <Loader2 className="absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-brand-500" />
@@ -103,7 +103,7 @@ export default function SearchBar({ placeholder, className, autoFocus }) {
               setOpen(false)
             }}
             aria-label={t('search.clearAria')}
-            className="absolute right-3 top-1/2 grid h-6 w-6 -translate-y-1/2 place-items-center rounded-full text-ink-400 hover:bg-sand-100"
+            className="absolute right-3 top-1/2 grid h-6 w-6 -translate-y-1/2 place-items-center rounded-full text-ink-400 hover:bg-sand-100 dark:hover:bg-sand-300"
           >
             <X className="h-4 w-4" />
           </button>
@@ -117,7 +117,7 @@ export default function SearchBar({ placeholder, className, autoFocus }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 6, scale: 0.98 }}
             transition={{ duration: 0.15 }}
-            className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[70vh] overflow-y-auto rounded-2xl border border-sand-200 bg-white p-2 shadow-lift dark:bg-sand-100"
+            className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[70vh] overflow-y-auto rounded-2xl border border-sand-200 bg-white p-2 shadow-lift dark:border-sand-300 dark:bg-sand-200"
             role="listbox"
           >
             {items.length === 0 && !loading && (
@@ -149,7 +149,7 @@ export default function SearchBar({ placeholder, className, autoFocus }) {
                         onMouseEnter={() => setActiveIndex(idx)}
                         className={cn(
                           'flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition',
-                          active ? 'bg-sand-100' : 'hover:bg-sand-100/60'
+                          active ? 'bg-sand-100 dark:bg-sand-300' : 'hover:bg-sand-100/60 dark:hover:bg-sand-300/60'
                         )}
                       >
                         <span

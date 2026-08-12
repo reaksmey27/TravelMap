@@ -30,8 +30,8 @@ export default function LanguageSwitcher({ className, compact = false }) {
       aria-label={t('language.switchTo', { lang: t(next.labelKey) })}
       title={t('language.switchTo', { lang: t(next.labelKey) })}
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-full border border-sand-200 bg-white font-semibold text-ink-600 transition active:scale-95 dark:bg-sand-100',
-        'hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600',
+        'inline-flex items-center gap-1.5 rounded-full border border-sand-200 bg-white font-semibold text-ink-600 transition active:scale-95 dark:border-sand-300 dark:bg-sand-200',
+        'hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-brand-100 dark:hover:text-brand-400',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300',
         compact ? 'px-2.5 py-1.5 text-[11px]' : 'px-4 py-2 text-xs',
         className

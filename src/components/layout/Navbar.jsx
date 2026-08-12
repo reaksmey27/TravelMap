@@ -74,8 +74,8 @@ export default function Navbar() {
       className={cn(
         'fixed inset-x-0 top-0 z-[1000] transition-all duration-300',
         scrolled
-          ? 'bg-white/85 shadow-soft backdrop-blur-xl dark:bg-sand-100/85'
-          : 'bg-white/60 backdrop-blur-md dark:bg-sand-100/60'
+          ? 'bg-white/85 shadow-soft backdrop-blur-xl dark:backdrop-blur-0 dark:border-b dark:border-sand-300 dark:bg-sand-100'
+          : 'bg-white/60 backdrop-blur-md dark:backdrop-blur-0 dark:border-b dark:border-sand-300 dark:bg-sand-100'
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
@@ -127,7 +127,7 @@ export default function Navbar() {
             }}
             aria-label={isDark ? t('theme.switchToLight') : t('theme.switchToDark')}
             title={isDark ? t('theme.switchToLight') : t('theme.switchToDark')}
-            className="grid h-10 w-10 place-items-center rounded-full text-ink-600 transition hover:bg-sand-100 hover:text-brand-600"
+            className="grid h-10 w-10 place-items-center rounded-full text-ink-600 transition hover:bg-sand-100 hover:text-brand-600 dark:hover:bg-sand-200 dark:hover:text-brand-400"
           >
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </button>
@@ -135,7 +135,7 @@ export default function Navbar() {
           <Link
             to="/favorites"
             aria-label={`${t('nav.favorites')} (${favCount})`}
-            className="relative grid h-10 w-10 place-items-center rounded-full text-ink-600 transition hover:bg-sand-100 hover:text-brand-600"
+            className="relative grid h-10 w-10 place-items-center rounded-full text-ink-600 transition hover:bg-sand-100 hover:text-brand-600 dark:hover:bg-sand-200 dark:hover:text-brand-400"
           >
             <Heart className="h-5 w-5" />
             <AnimatePresence>
@@ -157,7 +157,7 @@ export default function Navbar() {
                 onClick={() => setMenuOpen((o) => !o)}
                 aria-label={t('navbar.accountMenu')}
                 aria-expanded={menuOpen}
-                className="flex items-center gap-1.5 rounded-full border-2 border-white shadow-soft transition hover:opacity-85"
+                className="flex items-center gap-1.5 rounded-full border-2 border-white shadow-soft transition hover:opacity-85 dark:border-sand-200"
               >
                 <span className="grid h-9 w-9 place-items-center overflow-hidden rounded-full">
                   {avatar && !avatarFailed ? (
@@ -188,9 +188,9 @@ export default function Navbar() {
                     transition={{ duration: 0.15 }}
                     role="menu"
                     aria-label="Account menu"
-                    className="absolute right-0 top-full mt-2 w-52 overflow-hidden rounded-2xl border border-sand-100 bg-white py-1.5 shadow-lift dark:bg-sand-100 dark:border-sand-200"
+                    className="absolute right-0 top-full mt-2 w-52 overflow-hidden rounded-2xl border border-sand-100 bg-white py-1.5 shadow-lift dark:border-sand-300 dark:bg-sand-200"
                   >
-                    <div className="border-b border-sand-100 px-4 pb-2.5 pt-2">
+                    <div className="border-b border-sand-100 px-4 pb-2.5 pt-2 dark:border-sand-300">
                       <p className="truncate text-sm font-semibold text-ink-900">{name || t('app.traveler')}</p>
                       {authUser?.email && (
                         <p className="truncate text-xs text-ink-400">{authUser.email}</p>
@@ -202,13 +202,13 @@ export default function Navbar() {
                         to={to}
                         role="menuitem"
                         onClick={() => setMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-ink-700 transition hover:bg-sand-50 hover:text-brand-600"
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-ink-700 transition hover:bg-sand-50 hover:text-brand-600 dark:hover:bg-sand-300 dark:hover:text-brand-400"
                       >
                         <Icon className="h-4 w-4 text-ink-400" />
                         {label}
                       </Link>
                     ))}
-                    <div className="border-t border-sand-100 p-2">
+                    <div className="border-t border-sand-100 p-2 dark:border-sand-300">
                       <LanguageSwitcher compact className="w-full justify-center" />
                     </div>
                     <button
@@ -217,7 +217,7 @@ export default function Navbar() {
                         setConfirmOpen(true)
                       }}
                       role="menuitem"
-                      className="flex w-full items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-brand-700 transition hover:bg-brand-50"
+                      className="flex w-full items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-brand-700 transition hover:bg-brand-50 dark:text-brand-400 dark:hover:bg-brand-100"
                     >
                       <LogOut className="h-4 w-4" />
                       {t('common.signOut')}
