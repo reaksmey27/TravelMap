@@ -12,11 +12,13 @@ import { useTranslation } from '../../hooks/useTranslation'
 import { useImageFallback } from '../../hooks/useImageFallback'
 import LanguageSwitcher from '../common/LanguageSwitcher'
 import { cn } from '../../utils/cn'
+import ConfirmDialog from '../common/ConfirmDialog'
 
 export default function Navbar() {
   const { t } = useTranslation()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [confirmOpen, setConfirmOpen] = useState(false)
   const menuRef = useRef(null)
   const navigate = useNavigate()
   const location = useLocation()
@@ -52,8 +54,6 @@ export default function Navbar() {
   }, [menuOpen])
 
   const handleSignOut = async () => {
-    if (!window.confirm(t('common.confirmSignOut'))) return
-    setMenuOpen(false)
     try {
       await signOut()
       navigate('/')
@@ -212,7 +212,10 @@ export default function Navbar() {
                       <LanguageSwitcher compact className="w-full justify-center" />
                     </div>
                     <button
-                      onClick={handleSignOut}
+                      onClick={() => {
+                        setMenuOpen(false)
+                        setConfirmOpen(true)
+                      }}
                       role="menuitem"
                       className="flex w-full items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-brand-700 transition hover:bg-brand-50"
                     >
@@ -236,6 +239,18 @@ export default function Navbar() {
           )}
         </div>
       </div>
+      <ConfirmDialog
+        open={confirmOpen}
+        title={t('common.confirmSignOutTitle')}
+        message={t('common.confirmSignOut')}
+        confirmLabel={t('common.signOut')}
+        icon={LogOut}
+        onConfirm={() => {
+          setConfirmOpen(false)
+          handleSignOut()
+        }}
+        onCancel={() => setConfirmOpen(false)}
+      />
     </header>
   )
 }

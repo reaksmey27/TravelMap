@@ -14,6 +14,7 @@ import { useImageFallback } from '../hooks/useImageFallback'
 import LanguageSwitcher from '../components/common/LanguageSwitcher'
 import { THEMES, useThemeStore, applyTheme } from '../store/themeStore'
 import { cn } from '../utils/cn'
+import ConfirmDialog from '../components/common/ConfirmDialog'
 
 const inputCls =
   'w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 text-sm text-ink-900 outline-none transition placeholder:text-ink-400 focus:border-brand-300 focus:ring-2 focus:ring-brand-100 dark:bg-sand-100'
@@ -75,6 +76,7 @@ export default function Settings() {
   const setTheme = useThemeStore((s) => s.setTheme)
   const [saved, setSaved] = useState(false)
   const [busy, setBusy] = useState(false)
+  const [confirmOpen, setConfirmOpen] = useState(false)
   const [avatarFailed, setAvatarFailed] = useImageFallback(authUser?.avatar)
   const [prefs, setPrefs] = useLocalStorage('travelmap-preferences', {
     reduceMotion: false,
@@ -147,11 +149,7 @@ export default function Settings() {
               </div>
             </div>
             <button
-              onClick={async () => {
-                if (!window.confirm(t('common.confirmSignOut'))) return
-                await signOut()
-                navigate('/')
-              }}
+              onClick={() => setConfirmOpen(true)}
               className="inline-flex items-center justify-center gap-2 rounded-full border border-sand-200 px-5 py-2.5 text-sm font-semibold text-ink-700 transition hover:border-brand-200 hover:text-brand-600"
             >
               <LogOut className="h-4 w-4" /> {t('common.signOut')}
@@ -302,6 +300,19 @@ export default function Settings() {
           </div>
         </Section>
       </div>
+      <ConfirmDialog
+        open={confirmOpen}
+        title={t('common.confirmSignOutTitle')}
+        message={t('common.confirmSignOut')}
+        confirmLabel={t('common.signOut')}
+        icon={LogOut}
+        onConfirm={async () => {
+          setConfirmOpen(false)
+          await signOut()
+          navigate('/')
+        }}
+        onCancel={() => setConfirmOpen(false)}
+      />
     </PageTransition>
   )
 }
