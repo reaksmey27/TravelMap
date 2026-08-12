@@ -9,6 +9,7 @@ import { useUserStore } from '../../store/userStore'
 import { useAuthStore } from '../../store/authStore'
 import { useThemeStore, useIsDark, applyTheme } from '../../store/themeStore'
 import { useTranslation } from '../../hooks/useTranslation'
+import { useImageFallback } from '../../hooks/useImageFallback'
 import LanguageSwitcher from '../common/LanguageSwitcher'
 import { cn } from '../../utils/cn'
 
@@ -36,7 +37,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Close the avatar menu on outside click or Escape.
   useEffect(() => {
     if (!menuOpen) return
     const onClick = (e) => {
@@ -57,12 +57,12 @@ export default function Navbar() {
       await signOut()
       navigate('/')
     } catch {
-      // signOut errors surface in Settings; nothing to do here
     }
   }
 
   const avatar = profile.avatar || authUser?.avatar
   const name = profile.name || authUser?.name
+  const [avatarFailed, setAvatarFailed] = useImageFallback(avatar)
   const menuItems = [
     { to: '/profile', icon: User, label: t('navbar.myProfile') },
     { to: '/settings', icon: Settings, label: t('navbar.settings') },
@@ -78,7 +78,6 @@ export default function Navbar() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
-        {/* Logo */}
         <Link to="/" className="flex shrink-0 items-center gap-2" aria-label={t('navbar.home')}>
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-500 text-white shadow-soft">
             <MapPin className="h-5 w-5" />
@@ -88,7 +87,6 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Nav links */}
         <nav aria-label="Primary" className="ml-2 hidden items-center gap-1 md:flex">
           {NAV_LINKS.map((link) => {
             const active = location.pathname.startsWith(link.to)
@@ -114,19 +112,17 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Global search */}
         <div className="ml-auto hidden w-full max-w-xs lg:block">
           <SearchBar />
         </div>
 
-        {/* Right actions */}
         <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-0">
           <button
             type="button"
             onClick={() => {
               const next = isDark ? 'light' : 'dark'
               setTheme(next)
-              applyTheme(next) // apply immediately, no re-render wait
+              applyTheme(next)
             }}
             aria-label={isDark ? t('theme.switchToLight') : t('theme.switchToDark')}
             title={isDark ? t('theme.switchToLight') : t('theme.switchToDark')}
@@ -163,8 +159,14 @@ export default function Navbar() {
                 className="flex items-center gap-1.5 rounded-full border-2 border-white shadow-soft transition hover:opacity-85"
               >
                 <span className="grid h-9 w-9 place-items-center overflow-hidden rounded-full">
-                  {avatar ? (
-                    <img src={avatar} alt={name || 'Account'} referrerPolicy="no-referrer" className="h-full w-full object-cover" />
+                  {avatar && !avatarFailed ? (
+                    <img
+                      src={avatar}
+                      alt={name || 'Account'}
+                      referrerPolicy="no-referrer"
+                      onError={() => setAvatarFailed(true)}
+                      className="h-full w-full object-cover"
+                    />
                   ) : (
                     <span className="grid h-full w-full place-items-center bg-brand-500 text-xs font-bold text-white">
                       {(name || 'T')[0].toUpperCase()}

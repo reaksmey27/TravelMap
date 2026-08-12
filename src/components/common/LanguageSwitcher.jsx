@@ -18,10 +18,6 @@ const LANGS = [
   },
 ]
 
-/**
- * Single-button language picker. Shows the current language's flag and
- * name; one click switches to the other language.
- */
 export default function LanguageSwitcher({ className, compact = false }) {
   const { t, lang, setLang } = useTranslation()
   const current = LANGS.find((l) => l.id === lang) ?? LANGS[0]

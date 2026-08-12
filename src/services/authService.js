@@ -9,7 +9,6 @@ import {
 } from 'firebase/auth'
 import { auth, googleProvider, isFirebaseConfigured } from './firebase'
 
-/** Map Firebase error codes to friendly, human-readable messages. */
 export function friendlyAuthError(err) {
   const code = err?.code || ''
   const map = {
@@ -32,7 +31,6 @@ export function friendlyAuthError(err) {
 
 export const isAuthReady = () => isFirebaseConfigured && Boolean(auth)
 
-/** Google sign-in popup. Resolves with the Firebase user (or null on failure). */
 export async function signInWithGoogle() {
   if (!isAuthReady()) throw new Error('Firebase is not configured yet.')
   try {
@@ -53,7 +51,6 @@ export async function signInWithGoogle() {
   }
 }
 
-/** Email/password sign-up. */
 export async function signUpWithEmail(email, password) {
   if (!isAuthReady()) throw new Error('Firebase is not configured yet.')
   try {
@@ -64,7 +61,6 @@ export async function signUpWithEmail(email, password) {
   }
 }
 
-/** Email/password sign-in. */
 export async function signInWithEmail(email, password) {
   if (!isAuthReady()) throw new Error('Firebase is not configured yet.')
   try {
@@ -75,7 +71,6 @@ export async function signInWithEmail(email, password) {
   }
 }
 
-/** Send a password reset email. */
 export async function sendPasswordReset(email) {
   if (!isAuthReady()) throw new Error('Firebase is not configured yet.')
   try {
@@ -85,7 +80,6 @@ export async function sendPasswordReset(email) {
   }
 }
 
-/** Sign the current user out. */
 export async function signOutUser() {
   if (!isAuthReady()) return
   try {
@@ -95,10 +89,6 @@ export async function signOutUser() {
   }
 }
 
-/**
- * Subscribe to auth state changes. Returns an unsubscribe function.
- * `callback(firebaseUser | null)` and optional `errorCallback(error)`.
- */
 export function onAuthChange(callback, errorCallback) {
   if (!isAuthReady()) {
     callback(null)
@@ -107,7 +97,6 @@ export function onAuthChange(callback, errorCallback) {
   return onAuthStateChanged(auth, callback, errorCallback)
 }
 
-/** Normalize a Firebase user into the shape the app stores. */
 export function toAppUser(firebaseUser) {
   if (!firebaseUser) return null
   // photoURL is often null for Google sign-ins; the provider entry keeps its

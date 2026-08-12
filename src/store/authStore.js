@@ -12,10 +12,8 @@ import { useUserStore } from './userStore'
 
 let subscribed = false
 
-/** UID we've already tried to recover a missing Google picture for (once per page load). */
 let photoRetryUid = null
 
-/** Fill blank profile fields from the signed-in account (name, avatar, email). */
 function prefillProfileFromUser(user) {
   if (!user) return
   const profile = useUserStore.getState().profile
@@ -28,12 +26,10 @@ function prefillProfileFromUser(user) {
 }
 
 export const useAuthStore = create((set, get) => ({
-  /** loading | signedIn | signedOut | unconfigured */
   status: 'loading',
   user: null,
   error: null,
 
-  /** Subscribe once to Firebase auth state; safe to call on every app mount. */
   init() {
     if (subscribed) return
     subscribed = true
@@ -43,7 +39,6 @@ export const useAuthStore = create((set, get) => ({
     }
     onAuthChange(async (firebaseUser) => {
       const user = toAppUser(firebaseUser)
-      // Render immediately; never block the app on a network round trip.
       set({ user, status: user ? 'signedIn' : 'signedOut', error: null })
       if (user) prefillProfileFromUser(user)
       // Sessions created before the photo fallback restore with a missing
@@ -59,12 +54,9 @@ export const useAuthStore = create((set, get) => ({
             prefillProfileFromUser(refreshed)
           }
         } catch {
-          // Offline or permission hiccup — keep the original user.
         }
       }
     }, () => {
-      // Auth state couldn't be restored (e.g. network hiccup) — treat as
-      // signed out so the user can reach the login page instead of a spinner.
       set({ user: null, status: 'signedOut' })
     })
   },

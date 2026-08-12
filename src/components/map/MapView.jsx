@@ -15,8 +15,6 @@ import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useTranslation } from '../../hooks/useTranslation'
 import { cn } from '../../utils/cn'
 
-/* ---------------- internal map helpers ---------------- */
-
 function ClickHandler({ onMapClick }) {
   useMapEvents({
     click: (e) => onMapClick?.(e.latlng),
@@ -31,7 +29,6 @@ function FlyTo({ target }) {
     const [lat, lng] = target.center
     if (!lat || !lng) return
     map.flyTo([lat, lng], target.zoom ?? Math.max(map.getZoom(), 10), { duration: 1 })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [target?.center?.[0], target?.center?.[1], target?.zoom])
   return null
 }
@@ -131,19 +128,6 @@ function ZoomButtons() {
   )
 }
 
-/* ---------------- main component ---------------- */
-
-/**
- * Reusable map. Renders children markers inside a cluster group.
- *
- * props:
- *  - center / zoom: initial viewport
- *  - flyTo: { center: [lat, lng], zoom } -> animated fly-to when it changes
- *  - markers: [{ id, name, lat, lon, icon, popup, ... }]
- *  - cluster: boolean (default true)
- *  - onMapClick(latlng), onLocate({lat, lon})
- *  - controls: 'default' | 'custom' | 'none'
- */
 export default function MapView({
   center,
   zoom = 4,
@@ -154,13 +138,11 @@ export default function MapView({
   onLocate,
   controls = 'custom',
   layerSwitcherClassName,
-  /** Force the layer switcher on, even when `controls` hides the other buttons. */
   forceLayerSwitcher = false,
   className,
   children,
 }) {
-  // Remember the user's base layer across visits.
-  const [baseLayer, setBaseLayer] = useLocalStorage('travelmap-base-layer', 'streets') // 'streets' | 'satellite'
+  const [baseLayer, setBaseLayer] = useLocalStorage('travelmap-base-layer', 'streets')
   const showZoomControl = controls === 'default'
   const showCustom = controls === 'custom'
 
@@ -211,7 +193,6 @@ export default function MapView({
             ))
           ))}
 
-        {/* Floating controls must stay inside MapContainer so useMap() has context */}
         {(showCustom || forceLayerSwitcher) && (
           <div className={cn('absolute z-[1000]', layerSwitcherClassName || 'left-3 top-3')}>
             <LayerSwitcher value={baseLayer} onChange={setBaseLayer} />

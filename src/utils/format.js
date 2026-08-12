@@ -1,6 +1,5 @@
 import { getMonths } from '../i18n'
 
-/** "2026-06-12" -> "June 12, 2026" (localized) */
 export function formatDate(dateStr, lang = 'en') {
   if (!dateStr) return ''
   const d = new Date(dateStr)
@@ -9,7 +8,6 @@ export function formatDate(dateStr, lang = 'en') {
   return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`
 }
 
-/** "2026-06-12" -> "Jun 12" (localized) */
 export function formatShortDate(dateStr, lang = 'en') {
   if (!dateStr) return ''
   const d = new Date(dateStr)
@@ -18,7 +16,6 @@ export function formatShortDate(dateStr, lang = 'en') {
   return `${months[d.getMonth()].slice(0, 3)} ${d.getDate()}`
 }
 
-/** "June 12 – June 18, 2026" (localized) */
 export function formatRange(start, end, lang = 'en') {
   if (!start || !end) return ''
   const s = new Date(start)
@@ -32,13 +29,11 @@ export function formatRange(start, end, lang = 'en') {
   return `${months[s.getMonth()]} ${s.getDate()} – ${months[e.getMonth()]} ${e.getDate()}, ${e.getFullYear()}`
 }
 
-/** 1284 -> "1,284" */
 export function formatNumber(n) {
   if (n == null) return ''
   return Number(n).toLocaleString('en-US')
 }
 
-/** 1240 -> "1.2K", 2400000 -> "2.4M" */
 export function compactNumber(n) {
   if (n == null) return ''
   const num = Number(n)
@@ -47,7 +42,6 @@ export function compactNumber(n) {
   return String(num)
 }
 
-/** unique id */
 export function uid(prefix = 'id') {
   if (typeof crypto !== 'undefined' && crypto.randomUUID) {
     return `${prefix}-${crypto.randomUUID().slice(0, 8)}`
@@ -55,14 +49,12 @@ export function uid(prefix = 'id') {
   return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
 }
 
-/** extract a readable city/country pair from a normalized place name */
 export function splitName(name) {
   if (!name) return { city: '', country: '' }
   const parts = name.split(',').map((p) => p.trim())
   return { city: parts[0] || '', country: parts[1] || '' }
 }
 
-/** Resize an image File to a compressed data URL (max 1000px, jpeg 0.8) */
 export function resizeImage(file, maxSize = 1000) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()

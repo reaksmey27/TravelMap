@@ -33,7 +33,6 @@ export default function JournalEditor({ initial, onSubmit, onCancel, submitLabel
       try {
         added.push(await resizeImage(file, 900))
       } catch {
-        // skip unreadable file
       }
     }
     setPhotos((p) => [...p, ...added])
@@ -129,7 +128,6 @@ export default function JournalEditor({ initial, onSubmit, onCancel, submitLabel
         aria-label="Entry content"
       />
 
-      {/* Photos */}
       <div>
         <input
           ref={fileRef}

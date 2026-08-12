@@ -2,10 +2,6 @@ import { Link } from 'react-router-dom'
 import { MapPin, Star } from 'lucide-react'
 import { useTranslation } from '../../hooks/useTranslation'
 
-/**
- * Popup body used inside Leaflet <Popup>. Keep markup compact —
- * it is rendered inside the leaflet popup container.
- */
 export default function MapPopup({
   image,
   title,

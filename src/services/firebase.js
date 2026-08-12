@@ -1,11 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
 
-/**
- * Firebase Auth configuration — populate from the Firebase console:
- * https://console.firebase.google.com → Project settings → Your apps → Web app.
- * Keep these in .env (see .env.example).
- */
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -15,7 +10,6 @@ const firebaseConfig = {
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
 }
 
-/** True once the required config values are present in the environment. */
 export const isFirebaseConfigured = Boolean(
   firebaseConfig.apiKey && firebaseConfig.authDomain && firebaseConfig.projectId && firebaseConfig.appId
 )

@@ -20,7 +20,6 @@ const TYPE_LABELS = {
   suburb: 'Neighborhood',
 }
 
-/** Normalize a raw Nominatim result into our Location shape */
 function normalizeResult(item) {
   const addr = item.address || {}
   const city =
@@ -39,11 +38,6 @@ function normalizeResult(item) {
   }
 }
 
-/**
- * Search for locations using Nominatim.
- * Returns a normalized array of places (city, town, landmark...).
- * Returns an empty array when the API is unreachable.
- */
 export async function searchLocations(query, { limit = 6 } = {}) {
   if (!query || query.trim().length < 2) return []
   try {
@@ -65,7 +59,6 @@ export async function searchLocations(query, { limit = 6 } = {}) {
   }
 }
 
-/** Reverse geocode a coordinate into a place name */
 export async function reverseGeocode(lat, lon) {
   const res = await http.get(`${NOMINATIM}/reverse`, {
     params: {

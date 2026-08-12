@@ -19,7 +19,7 @@ const fadeUp = {
 
 export default function HeroSection() {
   const { t } = useTranslation()
-  const [hero, setHero] = useState(null) // { image, thumb, title, user }
+  const [hero, setHero] = useState(null)
   const [stack, setStack] = useState([])
 
   useEffect(() => {
@@ -31,9 +31,7 @@ export default function HeroSection() {
         setHero(data.photos[0])
         setStack(data.photos.slice(1, 4))
       })
-      .catch(() => {
-        // No live photos available — the gradient still looks good.
-      })
+      .catch(() => {})
     return () => {
       cancelled = true
     }
@@ -41,7 +39,6 @@ export default function HeroSection() {
 
   return (
     <section className="relative overflow-hidden rounded-3xl shadow-card" aria-label={t('hero.welcomeAria')}>
-      {/* Background */}
       <div className="absolute inset-0">
         {hero?.url ? (
           <img src={hero.url} alt="" className="h-full w-full object-cover" />
@@ -112,10 +109,8 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Floating cards */}
         {hero && (
           <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] items-center justify-center xl:flex">
-            {/* Live featured photo card */}
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
@@ -133,7 +128,6 @@ export default function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Mini map preview */}
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
@@ -161,7 +155,6 @@ export default function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Live photo stack */}
             {stack.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, x: 40 }}

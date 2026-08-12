@@ -21,7 +21,6 @@ const Profile = lazy(() => import('../pages/Profile'))
 const Settings = lazy(() => import('../pages/Settings'))
 const NotFound = lazy(() => import('../pages/NotFound'))
 
-/** Wrap personal pages — they require a signed-in account. */
 const Protected = ({ children }) => <RequireAuth>{children}</RequireAuth>
 
 function PageLoader() {
@@ -47,14 +46,12 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
         <Route element={<MainLayout />}>
-          {/* Public pages */}
           <Route path="/" element={<Home />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/destinations/:id" element={<DestinationDetails />} />
           <Route path="/photos/:id" element={<PhotoDetails />} />
           <Route path="/login" element={<Login />} />
 
-          {/* Personal pages — sign-in required */}
           <Route path="/map" element={<Protected><MapPage /></Protected>} />
           <Route path="/trips" element={<Protected><Trips /></Protected>} />
           <Route path="/trips/create" element={<Protected><CreateTrip /></Protected>} />

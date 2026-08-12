@@ -22,7 +22,6 @@ export default function Journal() {
   return (
     <PageTransition>
       <div className="space-y-8">
-        {/* Header */}
         <header className="relative overflow-hidden rounded-3xl bg-ink-900 px-6 py-10 shadow-card sm:px-10 dark:bg-ink-950">
           <div className="pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-brand-500/20 blur-3xl" />
           <div className="relative flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
@@ -47,7 +46,6 @@ export default function Journal() {
           </div>
         </header>
 
-        {/* Editor */}
         <AnimatePresence>
           {editorOpen && (
             <motion.div
@@ -65,7 +63,6 @@ export default function Journal() {
           )}
         </AnimatePresence>
 
-        {/* Entries */}
         {entries.length > 0 ? (
           <div className="space-y-5">
             {entries.map((entry, i) => (

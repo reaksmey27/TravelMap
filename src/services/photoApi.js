@@ -9,7 +9,6 @@ const PEXELS_KEY = import.meta.env.VITE_PEXELS_API_KEY
  * required; without one, getPhotos throws so pages can show an error state.
  */
 
-/* ---------------- Unsplash ---------------- */
 async function unsplashFetch(query, page, perPage) {
   const res = await http.get('https://api.unsplash.com/search/photos', {
     headers: { Authorization: `Client-ID ${UNSPLASH_KEY}` },
@@ -38,7 +37,6 @@ function unsplashNormalize(item) {
   }
 }
 
-/* ---------------- Pexels ---------------- */
 async function pexelsFetch(query, page, perPage) {
   const res = await http.get('https://api.pexels.com/v1/search', {
     headers: { Authorization: PEXELS_KEY },
@@ -67,7 +65,6 @@ function pexelsNormalize(item) {
   }
 }
 
-/* ---------------- Guess category from text ---------------- */
 const CATEGORY_KEYWORDS = {
   Nature: ['nature', 'forest', 'tree', 'plant', 'flower', 'landscape', 'park'],
   Beach: ['beach', 'ocean', 'sea', 'sand', 'coast', 'wave', 'island'],
@@ -86,17 +83,11 @@ function guessCategory(text = '') {
   return 'Adventure'
 }
 
-/* ---------------- Public API ---------------- */
 const api = {
-  /**
-   * Get paginated photos. Options: { query, category, page, perPage }
-   * Throws when no photo provider is configured or every provider fails.
-   */
   async getPhotos({ query = 'travel', page = 1, perPage = 12 } = {}) {
     if (!UNSPLASH_KEY && !PEXELS_KEY) {
       throw new Error('No photo provider configured. Add a Pexels or Unsplash API key.')
     }
-    // Try each configured provider once (no recursion), then give up.
     if (UNSPLASH_KEY) {
       const data = await withFallback(() => unsplashFetch(query, page, perPage), null)
       if (data?.results) {
@@ -112,18 +103,15 @@ const api = {
     throw new Error('Could not load photos from any photo provider.')
   },
 
-  /** Curated set for the home page */
   async getTrending({ perPage = 8 } = {}) {
     return this.getPhotos({ query: 'travel landscape', page: 1, perPage })
   },
 
-  /** Photos for a destination (by place name) */
   async getPhotosByDestination(destination, { page = 1, perPage = 12 } = {}) {
     const query = `${destination.name || destination} ${destination.country || ''} travel`.trim()
     return this.getPhotos({ query, page, perPage })
   },
 
-  /** Resolve a single photo by id (external provider ids only) */
   async getPhotoById(id) {
     return withFallback(
       async () => {
@@ -146,7 +134,6 @@ const api = {
     )
   },
 
-  /** Create a synthetic photo reference from an uploaded image */
   fromUpload(dataUrl, { title, city, country, lat, lon }) {
     return {
       id: uid('upload'),

@@ -6,7 +6,6 @@ import { useAuthStore } from './store/authStore'
 import { useThemeStore, applyTheme } from './store/themeStore'
 
 function AuthInit() {
-  // Restore the Firebase session on app start (idempotent).
   useEffect(() => {
     useAuthStore.getState().init()
   }, [])
@@ -14,7 +13,6 @@ function AuthInit() {
 }
 
 function ThemeInit() {
-  // Apply the saved theme and follow the OS when set to 'system'.
   const theme = useThemeStore((s) => s.theme)
   useEffect(() => {
     applyTheme(theme)

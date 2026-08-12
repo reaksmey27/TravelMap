@@ -9,10 +9,6 @@ function slugify(name = '') {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 }
 
-/**
- * Destination card for live (geocoded / photo-derived) destinations.
- * destination: { id, name, country, lat, lon, image?, photoCount? }
- */
 export default function DestinationCard({ destination, index = 0 }) {
   const { t } = useTranslation()
   const [loaded, setLoaded] = useState(false)
@@ -55,12 +51,10 @@ export default function DestinationCard({ destination, index = 0 }) {
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-ink-900/75 via-ink-900/10 to-transparent dark:from-ink-950/75 dark:via-ink-950/10" />
 
-          {/* Top-right favorite */}
           <div className="absolute right-3 top-3">
             <FavoriteButton type="destination" item={destination} />
           </div>
 
-          {/* Bottom content */}
           <div className="absolute inset-x-0 bottom-0 p-4">
             {country && (
               <p className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-brand-200">

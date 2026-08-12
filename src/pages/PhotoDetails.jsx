@@ -55,7 +55,6 @@ export default function PhotoDetails() {
 
   const [similar, setSimilar] = useState([])
 
-  // Live "more like this" — fetch photos matching this photo's theme.
   useEffect(() => {
     let cancelled = false
     if (!photo) return
@@ -84,7 +83,6 @@ export default function PhotoDetails() {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
-      // user cancelled
     }
   }
 
@@ -129,7 +127,6 @@ export default function PhotoDetails() {
         </button>
 
         <div className="grid gap-8 lg:grid-cols-5">
-          {/* Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -143,7 +140,6 @@ export default function PhotoDetails() {
             />
           </motion.div>
 
-          {/* Info */}
           <div className="space-y-6 lg:col-span-2">
             <div>
               <h1 className="text-balance font-display text-3xl font-extrabold tracking-tight text-ink-900">
@@ -157,7 +153,6 @@ export default function PhotoDetails() {
               )}
             </div>
 
-            {/* Author */}
             <div className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-soft dark:bg-sand-100">
               {photo.user?.avatar ? (
                 <img src={photo.user.avatar} alt="" referrerPolicy="no-referrer" className="h-11 w-11 rounded-full object-cover" />
@@ -189,7 +184,6 @@ export default function PhotoDetails() {
               </p>
             )}
 
-            {/* Tags */}
             {photo.tags?.length > 0 && (
               <div>
                 <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-ink-400">
@@ -208,7 +202,6 @@ export default function PhotoDetails() {
               </div>
             )}
 
-            {/* Actions */}
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => toggleLike(id)}
@@ -233,7 +226,6 @@ export default function PhotoDetails() {
               </button>
             </div>
 
-            {/* Location map */}
             {photo.lat != null && (
               <div className="overflow-hidden rounded-2xl shadow-soft">
                 <div className="h-48">
@@ -261,7 +253,6 @@ export default function PhotoDetails() {
           </div>
         </div>
 
-        {/* Similar photos */}
         {similar.length > 0 && (
           <section aria-label={t('photoDetails.moreLikeThis')}>
             <h2 className="mb-5 font-display text-xl font-bold text-ink-900">{t('photoDetails.moreLikeThis')}</h2>

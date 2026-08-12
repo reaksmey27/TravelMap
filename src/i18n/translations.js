@@ -4,11 +4,9 @@
  */
 export const translations = {
   en: {
-    // App
     'app.tagline': 'Your memories. Your map. Your journey.',
     'app.traveler': 'Traveler',
 
-    // Navigation
     'nav.home': 'Home',
     'nav.explore': 'Explore',
     'nav.map': 'Map',
@@ -17,7 +15,6 @@ export const translations = {
     'nav.profile': 'Profile',
     'nav.favorites': 'Favorites',
 
-    // Common
     'common.back': 'Back',
     'common.save': 'Save',
     'common.saved': 'Saved',
@@ -47,13 +44,11 @@ export const translations = {
     'common.unknownLocation': 'Unknown location',
     'common.day': 'Day',
 
-    // Language
     'language.label': 'Language',
     'language.english': 'English',
     'language.khmer': 'ភាសាខ្មែរ',
     'language.switchTo': 'Switch to {lang}',
 
-    // Theme
     'theme.label': 'Theme',
     'theme.light': 'Light',
     'theme.dark': 'Dark',
@@ -61,20 +56,17 @@ export const translations = {
     'theme.switchToDark': 'Switch to dark mode',
     'theme.switchToLight': 'Switch to light mode',
 
-    // Search
     'search.placeholder': 'Search places, trips…',
     'search.searching': 'Searching the world…',
     'search.noResults': 'No results for “{query}”. Try a city like Barcelona.',
     'search.clearAria': 'Clear search',
     'search.aria': 'Search',
 
-    // Navbar
     'navbar.myProfile': 'My profile',
     'navbar.settings': 'Settings',
     'navbar.accountMenu': 'Account menu',
     'navbar.home': 'TravelMap home',
 
-    // Login
     'login.welcomeBack': 'Welcome back',
     'login.joinJourney': 'Join the journey',
     'login.signInSub': 'Sign in to your TravelMap account.',
@@ -111,7 +103,6 @@ export const translations = {
     'login.perk3.title': 'Write your stories',
     'login.perk3.text': 'A journal that travels with you, wherever you go.',
 
-    // Settings
     'settings.title': 'Settings',
     'settings.subtitle': 'Make TravelMap yours.',
     'settings.account': 'Account',
@@ -144,7 +135,6 @@ export const translations = {
     'settings.dataFooter':
       'Trips, favorites, journal and profile are stored in your browser on this device.',
 
-    // Profile
     'profile.editProfile': 'Edit profile',
     'profile.yourName': 'Your name',
     'profile.setupHint':
@@ -162,8 +152,28 @@ export const translations = {
     'profile.noJournalMsg': 'Write about your travels and keep your stories here.',
     'profile.myMap': 'My Travel Map',
     'profile.visited': 'Places I’ve been',
+    'profile.memberSince': 'Member since {year}',
+    'profile.badges': 'Travel badges',
+    'profile.badgesSub': 'Milestones from your journeys',
+    'profile.locked': 'Locked',
+    'profile.distanceLabel': 'Distance travelled',
+    'profile.yearsLabel': 'Years on the road',
+    'profile.journeyHint':
+      'An estimate of the ground you’ve covered — one flight or road trip at a time.',
 
-    // Home
+    'profile.badge.firstTrip': 'First Trip',
+    'profile.badge.firstTripDesc': 'Where the journey began',
+    'profile.badge.explorer': 'World Explorer',
+    'profile.badge.explorerDesc': 'Visited 3+ countries',
+    'profile.badge.cityHopper': 'City Hopper',
+    'profile.badge.cityHopperDesc': 'Explored 10+ places',
+    'profile.badge.storyteller': 'Storyteller',
+    'profile.badge.storytellerDesc': 'Wrote 3+ stories',
+    'profile.badge.collector': 'Collector',
+    'profile.badge.collectorDesc': 'Saved 5+ favorite photos',
+    'profile.badge.backpacker': 'Backpacker',
+    'profile.badge.backpackerDesc': 'Travelled 2,000+ km',
+
     'home.eyebrowTop': 'Top picks',
     'home.popularTitle': 'Popular destinations',
     'home.popularSub': 'Real places, geocoded live — find photos and plan trips.',
@@ -183,7 +193,6 @@ export const translations = {
     'home.journeySoFar': 'Your journey so far',
     'home.localNote': 'Every trip, photo and place is stored locally in your browser.',
 
-    // Hero
     'hero.exploreWorld': 'Explore the world.',
     'hero.captureMoments': 'Capture the moments.',
     'hero.sub':
@@ -194,7 +203,6 @@ export const translations = {
     'hero.featuredPhoto': 'Featured photo',
     'hero.welcomeAria': 'Welcome to TravelMap',
 
-    // Explore
     'explore.discover': 'Discover',
     'explore.title': 'Explore the world',
     'explore.sub':
@@ -209,7 +217,6 @@ export const translations = {
     'cat.Food': 'Food',
     'cat.Adventure': 'Adventure',
 
-    // Map
     'map.searchPlaceholder': 'Search a destination…',
     'map.myTrips': 'My Trips',
     'map.livePhotos': 'Live Photos',
@@ -224,7 +231,6 @@ export const translations = {
     'map.travelPhoto': 'Travel photo',
     'map.day': 'Day {day}',
 
-    // Trips
     'trips.eyebrow': 'Your adventures',
     'trips.title': 'Trips',
     'trips.sub': 'Every journey you plan and live, mapped and remembered.',
@@ -234,13 +240,11 @@ export const translations = {
       'Plan your first adventure and it will show up here — with its own map, timeline and photos.',
     'trips.createFirst': 'Create your first trip',
 
-    // Create trip
     'createTrip.eyebrow': 'New journey',
     'createTrip.title': 'Create a trip',
     'createTrip.sub':
       'Name it, pick a destination, add your dates and the places you visited. We’ll map it all for you.',
 
-    // Trip card / form / timeline / details
     'tripCard.places': '{count} Places',
     'tripCard.photos': '{count} Photos',
     'tripForm.tripName': 'Trip Name',
@@ -281,7 +285,6 @@ export const translations = {
     'tripDetails.photoCount': '{count} Photos',
     'tripDetails.photoLabel': 'Photo {n}',
 
-    // Journal
     'journal.eyebrow': 'Words from the road',
     'journal.title': 'Journal',
     'journal.sub':
@@ -308,7 +311,6 @@ export const translations = {
     'journalDetails.notFoundMsg': 'This journal entry doesn’t exist or was deleted.',
     'journalDetails.deleteConfirm': 'Delete “{title}”?',
 
-    // Favorites
     'favorites.eyebrow': 'Saved for later',
     'favorites.title': 'Favorites',
     'favorites.sub': 'Everything you’ve loved, in one place.',
@@ -326,7 +328,6 @@ export const translations = {
     'favorites.noTrips': 'No saved trips',
     'favorites.noTripsMsg': 'Save trips you love and they’ll show up here.',
 
-    // Photo details / modal / card / grid
     'photoDetails.back': 'Back to gallery',
     'photoDetails.unknownPhotographer': 'Unknown photographer',
     'photoDetails.photographer': 'Travel photographer',
@@ -351,7 +352,6 @@ export const translations = {
     'photoGrid.noPhotosMsg': 'Try a different filter or search term.',
     'photoGrid.loadError': 'Could not load photos',
 
-    // Destinations
     'destCard.photos': '{count} photos',
     'destHeader.photos': '{count} Photos',
     'destDetails.notFound': 'Destination not found',
@@ -366,7 +366,6 @@ export const translations = {
     'destDetails.exploreAll': 'Explore all photos',
     'destDetails.planTrip': 'Plan a trip here',
 
-    // Country + weather
     'country.unavailable': 'Country info is unavailable right now.',
     'country.capital': 'Capital',
     'country.region': 'Region',
@@ -405,7 +404,6 @@ export const translations = {
     'weather.severeThunderstorm': 'Severe thunderstorm',
     'weather.unknown': 'Unknown',
 
-    // Auth / misc
     'auth.checking': 'Checking your session…',
     'notFound.title': 'This trail doesn’t exist',
     'notFound.msg':
@@ -432,11 +430,9 @@ export const translations = {
   },
 
   km: {
-    // App
     'app.tagline': 'អនុស្សាវរីយ៍របស់អ្នក។ ផែនទីរបស់អ្នក។ ដំណើររបស់អ្នក។',
     'app.traveler': 'អ្នកធ្វើដំណើរ',
 
-    // Navigation
     'nav.home': 'ទំព័រដើម',
     'nav.explore': 'រុករក',
     'nav.map': 'ផែនទី',
@@ -445,7 +441,6 @@ export const translations = {
     'nav.profile': 'ប្រវត្តិរូប',
     'nav.favorites': 'ចំណូលចិត្ត',
 
-    // Common
     'common.back': 'ត្រឡប់ក្រោយ',
     'common.save': 'រក្សាទុក',
     'common.saved': 'បានរក្សាទុក',
@@ -475,13 +470,11 @@ export const translations = {
     'common.unknownLocation': 'ទីតាំងមិនស្គាល់',
     'common.day': 'ថ្ងៃ',
 
-    // Language
     'language.label': 'ភាសា',
     'language.english': 'English',
     'language.khmer': 'ភាសាខ្មែរ',
     'language.switchTo': 'ប្តូរទៅ {lang}',
 
-    // Theme
     'theme.label': 'ប្រធានបទ',
     'theme.light': 'ពន្លឺ',
     'theme.dark': 'ងងឹត',
@@ -489,20 +482,17 @@ export const translations = {
     'theme.switchToDark': 'ប្តូរទៅរបៀបងងឹត',
     'theme.switchToLight': 'ប្តូរទៅរបៀបពន្លឺ',
 
-    // Search
     'search.placeholder': 'ស្វែងរកទីកន្លែង និងដំណើរកម្សាន្ត…',
     'search.searching': 'កំពុងស្វែងរកទូទាំងពិភពលោក…',
     'search.noResults': 'រកមិនឃើញលទ្ធផលសម្រាប់ “{query}” ទេ។ សាកល្បងស្វែងរកទីក្រុងដូចជា Barcelona។',
     'search.clearAria': 'សម្អាតការស្វែងរក',
     'search.aria': 'ស្វែងរក',
 
-    // Navbar
     'navbar.myProfile': 'ប្រវត្តិរូបរបស់ខ្ញុំ',
     'navbar.settings': 'ការកំណត់',
     'navbar.accountMenu': 'ម៉ឺនុយគណនី',
     'navbar.home': 'ទំព័រដើម TravelMap',
 
-    // Login
     'login.welcomeBack': 'សូមស្វាគមន៍ត្រឡប់មកវិញ',
     'login.joinJourney': 'ចូលរួមដំណើរផ្សងព្រេង',
     'login.signInSub': 'ចូលគណនី TravelMap របស់អ្នក។',
@@ -538,7 +528,6 @@ export const translations = {
     'login.perk3.title': 'សរសេររឿងរបស់អ្នក',
     'login.perk3.text': 'កំណត់ហេតុដែលធ្វើដំណើរជាមួយអ្នក គ្រប់ទីកន្លែងដែលអ្នកទៅ។',
 
-    // Settings
     'settings.title': 'ការកំណត់',
     'settings.subtitle': 'ធ្វើឱ្យ TravelMap ក្លាយជារបស់អ្នក។',
     'settings.account': 'គណនី',
@@ -571,7 +560,6 @@ export const translations = {
     'settings.dataFooter':
       'ដំណើរកម្សាន្ត ចំណូលចិត្ត កំណត់ហេតុ និងប្រវត្តិរូបត្រូវបានរក្សាទុកក្នុងកម្មវិធីរុករករបស់អ្នកនៅលើឧបករណ៍នេះ។',
 
-    // Profile
     'profile.editProfile': 'កែប្រវត្តិរូប',
     'profile.yourName': 'ឈ្មោះរបស់អ្នក',
     'profile.setupHint':
@@ -589,8 +577,28 @@ export const translations = {
     'profile.noJournalMsg': 'សរសេរអំពីការធ្វើដំណើររបស់អ្នក ហើយរក្សារឿងរ៉ាវរបស់អ្នកនៅទីនេះ។',
     'profile.myMap': 'ផែនទីធ្វើដំណើររបស់ខ្ញុំ',
     'profile.visited': 'កន្លែងដែលខ្ញុំបានទៅ',
+    'profile.memberSince': 'សមាជិកតាំងពី {year}',
+    'profile.badges': 'ផ្លាកកិត្តិយសធ្វើដំណើរ',
+    'profile.badgesSub': 'សមិទ្ធផលពីដំណើររបស់អ្នក',
+    'profile.locked': 'មិនទាន់បើក',
+    'profile.distanceLabel': 'ចម្ងាយធ្វើដំណើរ',
+    'profile.yearsLabel': 'ឆ្នាំនៅលើផ្លូវ',
+    'profile.journeyHint':
+      'ការប៉ាន់ស្មានចម្ងាយដែលអ្នកបានធ្វើដំណើរ — មួយជើងហោះហើរ ឬការធ្វើដំណើរតាមផ្លូវម្តងៗ។',
 
-    // Home
+    'profile.badge.firstTrip': 'ដំណើរដំបូង',
+    'profile.badge.firstTripDesc': 'កន្លែងដែលដំណើរចាប់ផ្តើម',
+    'profile.badge.explorer': 'អ្នករុករកពិភពលោក',
+    'profile.badge.explorerDesc': 'បានទៅលេង 3+ ប្រទេស',
+    'profile.badge.cityHopper': 'អ្នកវង្វេងទីក្រុង',
+    'profile.badge.cityHopperDesc': 'បានរុករក 10+ កន្លែង',
+    'profile.badge.storyteller': 'អ្នកនិទានរឿង',
+    'profile.badge.storytellerDesc': 'បានសរសេរ 3+ រឿង',
+    'profile.badge.collector': 'អ្នកប្រមូល',
+    'profile.badge.collectorDesc': 'បានរក្សាទុក 5+ រូបថតចំណូលចិត្ត',
+    'profile.badge.backpacker': 'អ្នកស្ពាយកាបូប',
+    'profile.badge.backpackerDesc': 'បានធ្វើដំណើរ 2,000+ គីឡូម៉ែត្រ',
+
     'home.eyebrowTop': 'ជម្រើសកំពូល',
     'home.popularTitle': 'គោលដៅពេញនិយម',
     'home.popularSub': 'ទីកន្លែងពិត ដែលគូសទីតាំងផ្ទាល់ — ស្វែងរករូបថត និងរៀបចំដំណើរកម្សាន្ត។',
@@ -610,7 +618,6 @@ export const translations = {
     'home.journeySoFar': 'ដំណើររបស់អ្នករហូតមកដល់ពេលនេះ',
     'home.localNote': 'ដំណើរកម្សាន្ត រូបថត និងទីកន្លែងទាំងអស់ត្រូវបានរក្សាទុកក្នុងកម្មវិធីរុករករបស់អ្នក។',
 
-    // Hero
     'hero.exploreWorld': 'រុករកពិភពលោក។',
     'hero.captureMoments': 'ចាប់យកពេលវេលាដ៏អស្ចារ្យ។',
     'hero.sub':
@@ -621,7 +628,6 @@ export const translations = {
     'hero.featuredPhoto': 'រូបថតលេចធ្លោ',
     'hero.welcomeAria': 'សូមស្វាគមន៍មកកាន់ TravelMap',
 
-    // Explore
     'explore.discover': 'ស្វែងយល់',
     'explore.title': 'រុករកពិភពលោក',
     'explore.sub': 'ស្វែងយល់ពីទីកន្លែងដ៏ស្រស់ស្អាត និងអនុស្សាវរីយ៍ធ្វើដំណើរពីគ្រប់ជ្រុងនៃភពផែនដី។',
@@ -635,7 +641,6 @@ export const translations = {
     'cat.Food': 'អាហារ',
     'cat.Adventure': 'ផ្សងព្រេង',
 
-    // Map
     'map.searchPlaceholder': 'ស្វែងរកគោលដៅ…',
     'map.myTrips': 'ដំណើរកម្សាន្តរបស់ខ្ញុំ',
     'map.livePhotos': 'រូបថតផ្ទាល់',
@@ -650,7 +655,6 @@ export const translations = {
     'map.travelPhoto': 'រូបថតធ្វើដំណើរ',
     'map.day': 'ថ្ងៃទី {day}',
 
-    // Trips
     'trips.eyebrow': 'ដំណើរផ្សងព្រេងរបស់អ្នក',
     'trips.title': 'ដំណើរកម្សាន្ត',
     'trips.sub': 'រាល់ដំណើរដែលអ្នករៀបចំ និងរស់នៅ ត្រូវបានគូសផែនទី និងចងចាំ។',
@@ -660,13 +664,11 @@ export const translations = {
       'រៀបចំដំណើរផ្សងព្រេងដំបូងរបស់អ្នក ហើយវានឹងបង្ហាញនៅទីនេះ — ជាមួយផែនទី បន្ទាត់ពេលវេលា និងរូបថតផ្ទាល់ខ្លួន។',
     'trips.createFirst': 'បង្កើតដំណើរកម្សាន្តដំបូងរបស់អ្នក',
 
-    // Create trip
     'createTrip.eyebrow': 'ដំណើរថ្មី',
     'createTrip.title': 'បង្កើតដំណើរកម្សាន្ត',
     'createTrip.sub':
       'ដាក់ឈ្មោះ ជ្រើសរើសគោលដៅ បន្ថែមកាលបរិច្ឆេទ និងទីកន្លែងដែលអ្នកបានទៅ។ យើងនឹងគូសផែនទីទាំងអស់សម្រាប់អ្នក។',
 
-    // Trip card / form / timeline / details
     'tripCard.places': 'ទីកន្លែង {count}',
     'tripCard.photos': 'រូបថត {count}',
     'tripForm.tripName': 'ឈ្មោះដំណើរកម្សាន្ត',
@@ -706,7 +708,6 @@ export const translations = {
     'tripDetails.photoCount': 'រូបថត {count}',
     'tripDetails.photoLabel': 'រូបថត {n}',
 
-    // Journal
     'journal.eyebrow': 'ពាក្យពីផ្លូវ',
     'journal.title': 'កំណត់ហេតុ',
     'journal.sub': 'ចាប់យកពេលវេលារវាងរូបថត — រឿងរ៉ាវ ក្លិន និងផ្លូវវាង។',
@@ -731,7 +732,6 @@ export const translations = {
     'journalDetails.notFoundMsg': 'ធាតុកំណត់ហេតុនេះមិនមានទេ ឬត្រូវបានលុបចោល។',
     'journalDetails.deleteConfirm': 'លុប “{title}”?',
 
-    // Favorites
     'favorites.eyebrow': 'បានរក្សាទុកសម្រាប់ពេលក្រោយ',
     'favorites.title': 'ចំណូលចិត្ត',
     'favorites.sub': 'អ្វីៗដែលអ្នកស្រលាញ់ ស្ថិតនៅកន្លែងតែមួយ។',
@@ -748,7 +748,6 @@ export const translations = {
     'favorites.noTrips': 'មិនទាន់មានដំណើរកម្សាន្តដែលបានរក្សាទុកនៅឡើយទេ',
     'favorites.noTripsMsg': 'រក្សាទុកដំណើរកម្សាន្តដែលអ្នកចូលចិត្ត ហើយវានឹងបង្ហាញនៅទីនេះ។',
 
-    // Photo details / modal / card / grid
     'photoDetails.back': 'ត្រឡប់ទៅវិចិត្រសាល',
     'photoDetails.unknownPhotographer': 'អ្នកថតរូបមិនស្គាល់',
     'photoDetails.photographer': 'អ្នកថតរូបធ្វើដំណើរ',
@@ -773,7 +772,6 @@ export const translations = {
     'photoGrid.noPhotosMsg': 'សាកល្បងតម្រង ឬពាក្យស្វែងរកផ្សេង។',
     'photoGrid.loadError': 'មិនអាចផ្ទុករូបថតបានទេ',
 
-    // Destinations
     'destCard.photos': 'រូបថត {count}',
     'destHeader.photos': 'រូបថត {count}',
     'destDetails.notFound': 'រកមិនឃើញគោលដៅ',
@@ -787,7 +785,6 @@ export const translations = {
     'destDetails.exploreAll': 'រុករករូបថតទាំងអស់',
     'destDetails.planTrip': 'រៀបចំដំណើរកម្សាន្តនៅទីនេះ',
 
-    // Country + weather
     'country.unavailable': 'ព័ត៌មានប្រទេសមិនអាចប្រើបាននៅពេលនេះទេ។',
     'country.capital': 'រាជធានី',
     'country.region': 'តំបន់',
@@ -826,7 +823,6 @@ export const translations = {
     'weather.severeThunderstorm': 'ផ្គររន្ទះខ្លាំង',
     'weather.unknown': 'មិនស្គាល់',
 
-    // Auth / misc
     'auth.checking': 'កំពុងពិនិត្យសម័យប្រជុំ…',
     'notFound.title': 'ផ្លូវនេះមិនមានទេ',
     'notFound.msg':
@@ -853,7 +849,6 @@ export const translations = {
   },
 }
 
-/** Localized month names, indexed by getMonth(). */
 export const MONTHS = {
   en: [
     'January', 'February', 'March', 'April', 'May', 'June',

@@ -35,10 +35,8 @@ export default function PhotoCard({ photo, onClick, aspect = 'aspect-[4/5]', sho
             loaded ? 'opacity-100' : 'opacity-0'
           )}
         />
-        {/* Gradient */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/70 via-ink-900/5 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100 dark:from-ink-950/70 dark:via-ink-950/5" />
 
-        {/* Top row */}
         <div className="absolute left-3 top-3 right-3 flex items-start justify-between">
           <span className="rounded-full bg-white/85 px-2.5 py-1 text-[11px] font-semibold text-ink-800 backdrop-blur dark:bg-sand-100/85 dark:text-ink-900">
             {photo.category || t('photoCard.travel')}
@@ -46,7 +44,6 @@ export default function PhotoCard({ photo, onClick, aspect = 'aspect-[4/5]', sho
           <FavoriteButton type="photo" item={photo} />
         </div>
 
-        {/* Bottom info */}
         <div className="absolute inset-x-0 bottom-0 translate-y-1 p-4 transition-transform duration-300 group-hover:translate-y-0">
           <p className="flex items-center gap-1 text-xs font-medium text-white/90">
             <MapPin className="h-3.5 w-3.5 text-brand-300" />

@@ -1,12 +1,3 @@
-/**
- * Generates src/services/countryFacts.js from the world-countries package.
- *
- * Run:  node scripts/generateCountryFacts.mjs
- *
- * The generated file is a compact, dependency-free lookup keyed by ISO 3166-1
- * alpha-2 code, covering the static fields the CountriesNow API doesn't
- * provide (official name, region, languages, area, timezones).
- */
 import { writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -15,11 +6,6 @@ import { getTimezonesForCountry } from 'countries-and-timezones'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-/**
- * Canonical zone per country for well-known multi-zone nations, so
- * timezones[0] reads naturally (e.g. US -> America/New_York, not an
- * Aleutian island). Falls back to offset-frequency ordering otherwise.
- */
 const PREFERRED_TZ = {
   US: 'America/New_York',
   CA: 'America/Toronto',
@@ -78,9 +64,6 @@ for (const c of countries) {
   if (!c.cca2) continue
   const zones = getTimezonesForCountry(c.cca2) || []
 
-  // Dedupe by UTC offset and order by offset frequency (most zones share the
-  // offset first), so timezones[0] is a representative zone — e.g. the US
-  // lists an Eastern zone before America/Adak. Names are secondary-sorted.
   const byOffset = new Map()
   for (const z of zones) {
     const key = z.utcOffsetStr || '00:00'
@@ -90,7 +73,6 @@ for (const c of countries) {
   let timezones = [...byOffset.entries()]
     .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]))
     .flatMap(([, names]) => [...new Set(names)].sort())
-  // Hoist the canonical zone (if the dataset lists it) to the front.
   const preferred = PREFERRED_TZ[c.cca2]
   if (preferred && timezones.includes(preferred)) {
     timezones = [preferred, ...timezones.filter((z) => z !== preferred)]
@@ -112,8 +94,6 @@ const header = `// AUTO-GENERATED from world-countries + countries-and-timezones
 
 `
 
-// Minified (single line) — the file ships to the client in the lazy-loaded
-// DestinationDetails chunk, so size matters; it's regenerated, never edited.
 const body = 'export const COUNTRY_FACTS = ' + JSON.stringify(facts) + '\n'
 
 const outPath = join(__dirname, '..', 'src', 'services', 'countryFacts.js')

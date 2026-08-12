@@ -21,10 +21,6 @@ function Field({ label, required, children, className }) {
   )
 }
 
-/**
- * Reusable trip form.
- * props: initial (trip object), onSubmit(data), submitLabel, busy
- */
 export default function TripForm({ initial, onSubmit, submitLabel, busy = false }) {
   const { t } = useTranslation()
   const [form, setForm] = useState({
@@ -103,7 +99,6 @@ export default function TripForm({ initial, onSubmit, submitLabel, busy = false 
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-      {/* Cover image */}
       <div>
         <input
           ref={fileRef}
@@ -152,15 +147,15 @@ export default function TripForm({ initial, onSubmit, submitLabel, busy = false 
 
       <div className="grid gap-6 sm:grid-cols-2">
         <Field label={t('tripForm.tripName')} required>
-        <input
-          type="text"
-          name="trip-title"
-          id="trip-title"
-          value={form.title}
-          onChange={set('title')}
-          placeholder={t('tripForm.titlePh')}
-          className={inputCls}
-        />
+          <input
+            type="text"
+            name="trip-title"
+            id="trip-title"
+            value={form.title}
+            onChange={set('title')}
+            placeholder={t('tripForm.titlePh')}
+            className={inputCls}
+          />
         </Field>
 
         <Field label={t('tripForm.destination')} required>
@@ -195,7 +190,6 @@ export default function TripForm({ initial, onSubmit, submitLabel, busy = false 
         />
       </Field>
 
-      {/* Places */}
       <div>
         <div className="mb-1.5 flex items-center justify-between">
           <span className="text-sm font-semibold text-ink-700">{t('tripForm.placesVisited')}</span>

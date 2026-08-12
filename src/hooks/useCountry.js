@@ -1,12 +1,14 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { getCountry } from '../services/countryApi'
 
 export function useCountry({ name, code } = {}) {
   const [country, setCountry] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const requestId = useRef(0)
 
   const load = useCallback(async () => {
+    const id = ++requestId.current
     if (!name && !code) {
       setLoading(false)
       return
@@ -15,11 +17,11 @@ export function useCountry({ name, code } = {}) {
     setError(null)
     try {
       const data = await getCountry({ name, code })
-      setCountry(data)
+      if (requestId.current === id) setCountry(data)
     } catch (err) {
-      setError(err)
+      if (requestId.current === id) setError(err)
     } finally {
-      setLoading(false)
+      if (requestId.current === id) setLoading(false)
     }
   }, [name, code])
 

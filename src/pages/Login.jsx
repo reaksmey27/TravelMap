@@ -10,7 +10,6 @@ import { useTranslation } from '../hooks/useTranslation'
 import { isFirebaseConfigured } from '../services/firebase'
 import { cn } from '../utils/cn'
 
-/** Official multi-color Google "G" logo. */
 function GoogleLogo() {
   return (
     <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
@@ -138,7 +137,7 @@ export default function Login() {
   const { status, error, signInWithGoogle, signInWithEmail, signUpWithEmail, clearError } =
     useAuthStore()
 
-  const [mode, setMode] = useState('signin') // 'signin' | 'signup'
+  const [mode, setMode] = useState('signin')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [busy, setBusy] = useState(false)
@@ -147,8 +146,6 @@ export default function Login() {
   const [forgotError, setForgotError] = useState(null)
   const [notice, setNotice] = useState(null)
 
-  // Already signed in? Head back where the user came from. The store flips
-  // status synchronously on success, so this <Navigate> handles the redirect.
   if (status === 'signedIn') return <Navigate to={from} replace />
 
   const submit = async (e) => {
@@ -162,7 +159,6 @@ export default function Login() {
         await signUpWithEmail(email.trim(), password)
       }
     } catch {
-      // error already stored in the auth store and shown in the banner
     } finally {
       setBusy(false)
     }
@@ -176,7 +172,6 @@ export default function Login() {
       const user = await signInWithGoogle()
       if (!user) setNotice(t('login.popupClosed'))
     } catch {
-      // error already stored in the auth store and shown in the banner
     } finally {
       setBusy(false)
     }
@@ -225,7 +220,6 @@ export default function Login() {
                     {mode === 'signin' ? t('login.signInSub') : t('login.signUpSub')}
                   </p>
 
-                  {/* Mode switch */}
                   <div className="mt-6 grid grid-cols-2 gap-1 rounded-full bg-sand-100 p-1">
                     {[
                       { id: 'signin', label: t('login.signIn') },
@@ -251,7 +245,6 @@ export default function Login() {
                     ))}
                   </div>
 
-                  {/* Google */}
                   <button
                     type="button"
                     onClick={handleGoogle}
@@ -270,7 +263,6 @@ export default function Login() {
                     <span className="h-px flex-1 bg-sand-200" />
                   </div>
 
-                  {/* Error / notice banner */}
                   <AnimatePresence>
                     {(error || forgotError || notice) && (
                       <motion.div
@@ -293,7 +285,6 @@ export default function Login() {
                     )}
                   </AnimatePresence>
 
-                  {/* Email/password form */}
                   <form onSubmit={submit} className="space-y-4">
                     <label className="block">
                       <span className="mb-1.5 block text-sm font-semibold text-ink-700">{t('login.email')}</span>

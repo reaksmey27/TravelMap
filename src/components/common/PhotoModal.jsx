@@ -6,11 +6,13 @@ import { ArrowLeft, ArrowRight, ExternalLink, MapPin, X } from 'lucide-react'
 import { cn } from '../../utils/cn'
 import { formatNumber } from '../../utils/format'
 import { useTranslation } from '../../hooks/useTranslation'
+import { useImageFallback } from '../../hooks/useImageFallback'
 import FavoriteButton from './FavoriteButton'
 
 export default function PhotoModal({ photos, index, onClose, onNavigate }) {
   const { t } = useTranslation()
   const photo = photos[index]
+  const [avatarFailed, setAvatarFailed] = useImageFallback(photo?.user?.avatar)
 
   useEffect(() => {
     if (!photo) return
@@ -41,7 +43,6 @@ export default function PhotoModal({ photos, index, onClose, onNavigate }) {
         aria-modal="true"
         aria-label={photo.title}
       >
-        {/* Close */}
         <button
           onClick={onClose}
           aria-label={t('photoModal.closePreview')}
@@ -50,7 +51,6 @@ export default function PhotoModal({ photos, index, onClose, onNavigate }) {
           <X className="h-5 w-5" />
         </button>
 
-        {/* Prev / Next */}
         {photos.length > 1 && (
           <>
             <button
@@ -76,7 +76,6 @@ export default function PhotoModal({ photos, index, onClose, onNavigate }) {
           </>
         )}
 
-        {/* Content */}
         <motion.div
           key={photo.id}
           initial={{ opacity: 0, scale: 0.96 }}
@@ -107,10 +106,12 @@ export default function PhotoModal({ photos, index, onClose, onNavigate }) {
                 <p className="mt-4 text-sm leading-relaxed text-ink-600">{photo.description}</p>
               )}
               <div className="mt-4 flex items-center gap-3">
-                {photo.user?.avatar ? (
+                {photo.user?.avatar && !avatarFailed ? (
                   <img
                     src={photo.user.avatar}
                     alt=""
+                    referrerPolicy="no-referrer"
+                    onError={() => setAvatarFailed(true)}
                     className="h-9 w-9 rounded-full object-cover"
                   />
                 ) : (
@@ -127,16 +128,18 @@ export default function PhotoModal({ photos, index, onClose, onNavigate }) {
 
             <div className="flex items-center gap-2">
               <FavoriteButton type="photo" item={photo} variant="button" className="flex-1" />
-              <Link
-                to={`/photos/${photo.id}`}
-                onClick={onClose}
-                aria-label={t('photoModal.openDetails')}
-                className={cn(
-                  'grid h-10 w-10 shrink-0 place-items-center rounded-full border border-sand-200 bg-white text-ink-700 transition hover:border-brand-200 hover:text-brand-600 dark:bg-sand-100'
-                )}
-              >
-                <ExternalLink className="h-4 w-4" />
-              </Link>
+              {!photo.synthetic && (
+                <Link
+                  to={`/photos/${photo.id}`}
+                  onClick={onClose}
+                  aria-label={t('photoModal.openDetails')}
+                  className={cn(
+                    'grid h-10 w-10 shrink-0 place-items-center rounded-full border border-sand-200 bg-white text-ink-700 transition hover:border-brand-200 hover:text-brand-600 dark:bg-sand-100'
+                  )}
+                >
+                  <ExternalLink className="h-4 w-4" />
+                </Link>
+              )}
             </div>
           </div>
         </motion.div>

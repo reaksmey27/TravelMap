@@ -31,7 +31,6 @@ export const useJournalStore = create(
     {
       name: 'travelmap-journal',
       version: 1,
-      // v1 removes the previously seeded demo journal entries.
       migrate: () => ({ entries: [] }),
     }
   )

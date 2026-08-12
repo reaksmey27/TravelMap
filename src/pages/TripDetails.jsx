@@ -94,7 +94,6 @@ export default function TripDetails() {
   return (
     <PageTransition>
       <div className="space-y-8">
-        {/* Back */}
         <button
           onClick={() => navigate('/trips')}
           className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-500 transition hover:text-ink-900"
@@ -102,7 +101,6 @@ export default function TripDetails() {
           <ArrowLeft className="h-4 w-4" /> {t('tripDetails.allTrips')}
         </button>
 
-        {/* Hero */}
         <div className="relative overflow-hidden rounded-3xl shadow-card">
           <img src={trip.coverImage} alt={trip.title} className="h-64 w-full object-cover sm:h-80" />
           <div className="absolute inset-0 bg-gradient-to-t from-ink-900/85 via-ink-900/30 to-ink-900/10 dark:from-ink-950/85 dark:via-ink-950/30 dark:to-ink-950/10" />
@@ -110,14 +108,14 @@ export default function TripDetails() {
             <FavoriteButton type="trip" item={trip} />
             <button
               onClick={() => setEditing((e) => !e)}
-              aria-label="Edit trip"
+              aria-label={t('tripDetails.editTrip')}
               className="grid h-9 w-9 place-items-center rounded-full bg-white/90 text-ink-700 shadow-soft backdrop-blur transition hover:bg-white dark:bg-sand-100/90 dark:text-ink-900 dark:hover:bg-sand-100"
             >
               <Pencil className="h-4 w-4" />
             </button>
             <button
               onClick={handleDelete}
-              aria-label="Delete trip"
+              aria-label={t('common.delete')}
               className="grid h-9 w-9 place-items-center rounded-full bg-white/90 text-brand-600 shadow-soft backdrop-blur transition hover:bg-white dark:bg-sand-100/90 dark:hover:bg-sand-100"
             >
               <Trash2 className="h-4 w-4" />
@@ -148,7 +146,6 @@ export default function TripDetails() {
           <p className="max-w-3xl leading-relaxed text-ink-600">{trip.description}</p>
         )}
 
-        {/* Inline editor */}
         <AnimatePresence>
           {editing && (
             <motion.div
@@ -172,7 +169,6 @@ export default function TripDetails() {
           )}
         </AnimatePresence>
 
-        {/* Grid: map + timeline */}
         <div className="grid gap-8 lg:grid-cols-2">
           <section aria-label={t('tripDetails.tripMap')}>
             <h2 className="mb-5 font-display text-xl font-bold text-ink-900">{t('tripDetails.tripMap')}</h2>
@@ -199,7 +195,6 @@ export default function TripDetails() {
           </section>
         </div>
 
-        {/* Photos */}
         <section aria-label={t('tripDetails.photos')}>
           <h2 className="mb-5 font-display text-xl font-bold text-ink-900">
             {t('tripDetails.photos')}
@@ -237,7 +232,6 @@ export default function TripDetails() {
           )}
         </section>
 
-        {/* Linked journal */}
         {relatedEntries.length > 0 && (
           <section aria-label={t('tripDetails.journalEntries')}>
             <h2 className="mb-5 font-display text-xl font-bold text-ink-900">

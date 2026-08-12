@@ -1,14 +1,10 @@
 import { create } from 'zustand'
 
-const TTL = 5 * 60 * 1000 // 5 minutes
+const TTL = 5 * 60 * 1000
 
-/**
- * In-memory cache for API photo responses + lightweight "liked" toggles.
- * Keeps repeat visits instant without hammering external APIs.
- */
 export const usePhotoStore = create((set, get) => ({
-  cache: {}, // { [key]: { data, at } }
-  liked: {}, // { [photoId]: true } (session only)
+  cache: {},
+  liked: {},
 
   getCached: (key) => {
     const entry = get().cache[key]

@@ -12,7 +12,6 @@ function DayBlock({ day, places }) {
       transition={{ duration: 0.35 }}
       className="relative pb-8 pl-10"
     >
-      {/* node */}
       <span className="absolute left-0 top-0 grid h-7 w-7 place-items-center rounded-full border-2 border-brand-500 bg-white text-[11px] font-bold text-brand-600 dark:bg-sand-100">
         {day}
       </span>
@@ -37,7 +36,6 @@ function DayBlock({ day, places }) {
   )
 }
 
-/** Group trip locations by day and render a vertical timeline */
 export default function TripTimeline({ locations }) {
   const { t } = useTranslation()
   if (!locations?.length) {

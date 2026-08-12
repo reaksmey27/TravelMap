@@ -16,7 +16,6 @@ http.interceptors.response.use(
   }
 )
 
-/** Run an API call; return the fallback value on any failure. */
 export async function withFallback(apiCall, fallbackValue) {
   try {
     return await apiCall()

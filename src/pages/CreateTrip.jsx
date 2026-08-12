@@ -14,7 +14,6 @@ export default function CreateTrip() {
   const addTrip = useTripStore((s) => s.addTrip)
   const [busy, setBusy] = useState(false)
 
-  // Prefill the destination name from ?destination= query (e.g. "Plan a trip here" links)
   const prefill = useMemo(() => {
     const name = searchParams.get('destination')
     if (!name) return null
@@ -23,7 +22,6 @@ export default function CreateTrip() {
 
   const handleSubmit = (data) => {
     setBusy(true)
-    // Simulate a short save for a nicer transition
     setTimeout(() => {
       const trip = addTrip(data)
       navigate(`/trips/${trip.id}`)

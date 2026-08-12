@@ -17,7 +17,7 @@ export default function ErrorState({ title, message, onRetry }) {
           onClick={onRetry}
           className="mt-6 rounded-full bg-brand-500 px-6 py-2.5 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-600 active:scale-95"
         >
-          {t('errorState.tryAgain')}
+          {t('common.tryAgain')}
         </button>
       )}
     </div>

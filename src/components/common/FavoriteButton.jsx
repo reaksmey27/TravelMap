@@ -4,10 +4,6 @@ import { useFavoriteStore } from '../../store/favoriteStore'
 import { useTranslation } from '../../hooks/useTranslation'
 import { cn } from '../../utils/cn'
 
-/**
- * type: 'photo' | 'destination' | 'trip'
- * item: the object to save. Uses id-based lookup.
- */
 export default function FavoriteButton({ type, item, variant = 'icon', className }) {
   const { t } = useTranslation()
   const togglePhoto = useFavoriteStore((s) => s.togglePhoto)

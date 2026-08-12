@@ -44,11 +44,6 @@ async function getPopulationList() {
   return populationCache || []
 }
 
-/**
- * Fetch country information from CountriesNow.
- * Pass either a country name or a 2-letter ISO code.
- * Returns null when the country is unknown or the API is unreachable.
- */
 export async function getCountry({ name, code } = {}) {
   if (!name && !code) return null
 
@@ -58,8 +53,6 @@ export async function getCountry({ name, code } = {}) {
     : list.find((c) => norm(c.name) === norm(name))
   if (!entry) return null
 
-  // Latest year's count from the population time series (matched by iso3 —
-  // names differ between the two lists for some countries).
   const rows = await getPopulationList()
   const popRow = rows.find((r) => norm(r.iso3) === norm(entry.iso3))
   const counts = popRow?.populationCounts
@@ -67,8 +60,6 @@ export async function getCountry({ name, code } = {}) {
 
   const flagEmoji = entry.unicodeFlag || countryFlagEmoji(entry.iso2)
 
-  // Static facts bundled with the app (region, languages, official name,
-  // area, timezones) — CountriesNow doesn't provide these.
   const facts = COUNTRY_FACTS[entry.iso2] || {}
 
   return {
@@ -89,7 +80,6 @@ export async function getCountry({ name, code } = {}) {
   }
 }
 
-/** 'ES' -> 🇪🇸 */
 export function countryFlagEmoji(cc) {
   if (!cc) return ''
   const codePoints = cc

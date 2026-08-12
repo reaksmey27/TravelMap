@@ -3,10 +3,6 @@ import { ArrowLeft, Camera, MapPin } from 'lucide-react'
 import { formatNumber } from '../../utils/format'
 import { useTranslation } from '../../hooks/useTranslation'
 
-/**
- * Destination hero for live (geocoded) destinations.
- * destination: { name, country, image?, photoCount? }
- */
 export default function DestinationHeader({ destination }) {
   const { t } = useTranslation()
   const name = destination.name || t('common.unknownPlace')

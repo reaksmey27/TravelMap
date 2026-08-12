@@ -2,10 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import photoApi from '../services/photoApi'
 import { usePhotoStore } from '../store/photoStore'
 
-/**
- * Fetch photos with a TTL cache. Returns
- * { photos, total, loading, error, retry, reload }
- */
 export function usePhotos({ query = 'travel', category = null, page = 1, perPage = 12 } = {}) {
   const cacheKey = `photos:${query}:${category || 'all'}:${page}:${perPage}`
   const getCached = usePhotoStore((s) => s.getCached)

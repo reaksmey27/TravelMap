@@ -1,12 +1,14 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { getWeather } from '../services/weatherApi'
 
 export function useWeather(lat, lon) {
   const [weather, setWeather] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const requestId = useRef(0)
 
   const load = useCallback(async () => {
+    const id = ++requestId.current
     if (lat == null || lon == null) {
       setLoading(false)
       return
@@ -15,11 +17,11 @@ export function useWeather(lat, lon) {
     setError(null)
     try {
       const data = await getWeather(lat, lon)
-      setWeather(data)
+      if (requestId.current === id) setWeather(data)
     } catch (err) {
-      setError(err)
+      if (requestId.current === id) setError(err)
     } finally {
-      setLoading(false)
+      if (requestId.current === id) setLoading(false)
     }
   }, [lat, lon])
 

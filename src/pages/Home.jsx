@@ -14,7 +14,6 @@ import { searchLocations } from '../services/locationApi'
 import { useTripStore } from '../store/tripStore'
 import { useTranslation } from '../hooks/useTranslation'
 
-/** Real city names used as live search queries (not fabricated content). */
 const POPULAR_QUERIES = ['Barcelona', 'Tokyo', 'Paris', 'Bali', 'Bangkok', 'Rome']
 
 export default function Home() {
@@ -91,7 +90,6 @@ export default function Home() {
   }
 
   useEffect(() => {
-    // StrictMode mounts effects twice in dev — guard against duplicate runs.
     let cancelled = false
     const isCancelled = () => cancelled
     loadTrending()
@@ -103,7 +101,6 @@ export default function Home() {
 
   const popularTrips = trips.slice(0, 3)
 
-  // Stats derived from the user's own data — never fabricated.
   const stats = [
     { value: trips.length, label: t('common.trips'), icon: MapPin },
     { value: new Set(trips.map((t) => t.countryCode).filter(Boolean)).size, label: t('common.countries'), icon: Globe2 },
@@ -115,7 +112,6 @@ export default function Home() {
       <div className="space-y-20 sm:space-y-24">
         <HeroSection />
 
-        {/* Popular destinations — live geocoded */}
         <section aria-label="Popular destinations">
           <SectionHeading
             eyebrow={t('home.eyebrowTop')}
@@ -149,7 +145,6 @@ export default function Home() {
           )}
         </section>
 
-        {/* Trending photos */}
         <section aria-label="Trending travel photos">
           <SectionHeading
             eyebrow={t('home.eyebrowTrending')}
@@ -168,7 +163,6 @@ export default function Home() {
           />
         </section>
 
-        {/* Your trips */}
         <section aria-label="Your trips">
           <SectionHeading
             eyebrow={t('home.eyebrowTrips')}
@@ -196,7 +190,6 @@ export default function Home() {
           )}
         </section>
 
-        {/* Stats — computed from your own data */}
         {stats.some((s) => s.value > 0) && (
           <section aria-label="Your travel statistics">
             <motion.div

@@ -27,11 +27,9 @@ export default function MapPage() {
   const mapCenter = useMapStore((s) => s.center)
   const trips = useTripStore((s) => s.trips)
 
-  // Map store sync
   const storeSelected = useMapStore((s) => s.selectedLocation)
   const setStoreSelected = useMapStore((s) => s.setSelectedLocation)
 
-  // Load live photos that carry coordinates (Unsplash usually; Pexels rarely)
   useEffect(() => {
     let cancelled = false
     photoApi
@@ -57,10 +55,8 @@ export default function MapPage() {
       setFlyTo({ center: [lat, lng], zoom: 12 })
       setViewMode('trips')
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
-  // Handles selections made on other pages
   useEffect(() => {
     if (storeSelected) {
       setSelected(storeSelected)
@@ -122,7 +118,6 @@ export default function MapPage() {
 
   const lastReverseAt = useRef(0)
   const onMapClick = async (latlng) => {
-    // Cooldown so rapid clicks don't hammer the geocoding API.
     const now = Date.now()
     if (now - lastReverseAt.current < 1000) return
     lastReverseAt.current = now
@@ -157,17 +152,13 @@ export default function MapPage() {
         markers={markers}
         onMapClick={onMapClick}
         onLocate={onLocate}
-        // The top-left is occupied by the search bar — keep the style
-        // switcher clear of it on the right edge.
         layerSwitcherClassName="right-3 top-1/2 -translate-y-1/2"
       />
 
-      {/* Search overlay */}
       <div className="absolute left-3 right-3 top-3 z-[1000] max-w-md sm:left-4 sm:right-auto sm:w-96">
         <LocationSearch id="map-search" onSelect={onSearchSelect} placeholder={t('map.searchPlaceholder')} />
       </div>
 
-      {/* Layer toggle */}
       <div className="absolute left-3 top-20 z-[1000] flex overflow-hidden rounded-full bg-white shadow-soft sm:left-4 sm:top-auto sm:bottom-4 dark:bg-sand-100">
         <button
           onClick={() => setViewMode('trips')}
@@ -191,7 +182,6 @@ export default function MapPage() {
         </button>
       </div>
 
-      {/* Layer hint */}
       <div className="pointer-events-none absolute bottom-3 left-3 z-[1000] hidden items-center gap-1.5 rounded-full bg-white/85 px-3 py-1.5 text-[11px] font-medium text-ink-500 shadow-soft backdrop-blur md:flex dark:bg-sand-100/85">
         <Layers className="h-3.5 w-3.5" />
         {viewMode === 'trips'
@@ -201,7 +191,6 @@ export default function MapPage() {
           : t('map.geotagged', { count: livePhotos.length })}
       </div>
 
-      {/* Reverse geocode error toast */}
       <AnimatePresence>
         {reverseError && (
           <motion.div
@@ -215,7 +204,6 @@ export default function MapPage() {
         )}
       </AnimatePresence>
 
-      {/* Selected location — bottom sheet (mobile) / card (desktop) */}
       <AnimatePresence>
         {sheet && (
           <motion.div

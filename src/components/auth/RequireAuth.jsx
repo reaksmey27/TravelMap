@@ -22,11 +22,6 @@ function AuthGateLoader() {
   )
 }
 
-/**
- * Route guard for personal pages. Shows a loader while the session is being
- * restored, then either renders the page or redirects to /login (remembering
- * where the user was headed via location state).
- */
 export default function RequireAuth({ children }) {
   const status = useAuthStore((s) => s.status)
   const location = useLocation()

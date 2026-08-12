@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import { Backpack, Camera, Globe2, MapPin, Plus } from 'lucide-react'
 import PageTransition from '../components/common/PageTransition'
+import MetricCard from '../components/common/MetricCard'
 import TripCard from '../components/trips/TripCard'
 import EmptyState from '../components/common/EmptyState'
 import { useTripStore } from '../store/tripStore'
@@ -13,7 +13,7 @@ export default function Trips() {
 
   const places = trips.reduce((acc, t) => acc + (t.locations?.length || 0), 0)
   const tripPhotos = trips.reduce((acc, t) => acc + (t.photos?.length || 0), 0)
-  const countries = new Set(trips.map((t) => t.countryCode)).size
+  const countries = new Set(trips.map((t) => t.countryCode).filter(Boolean)).size
 
   const stats = [
     { value: trips.length, label: t('common.trips'), icon: Backpack },
@@ -25,7 +25,6 @@ export default function Trips() {
   return (
     <PageTransition>
       <div className="space-y-8">
-        {/* Header */}
         <header className="relative overflow-hidden rounded-3xl bg-ink-900 px-6 py-10 shadow-card sm:px-10 dark:bg-ink-950">
           <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-500/20 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-sage-500/15 blur-3xl" />
@@ -50,24 +49,12 @@ export default function Trips() {
           </div>
         </header>
 
-        {/* Stats */}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {stats.map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.06 }}
-              className="rounded-2xl border border-sand-200 bg-white p-4 shadow-soft dark:bg-sand-100"
-            >
-              <s.icon className="h-5 w-5 text-brand-500" />
-              <p className="mt-2 font-display text-2xl font-extrabold text-ink-900">{s.value}</p>
-              <p className="text-xs font-medium uppercase tracking-wide text-ink-400">{s.label}</p>
-            </motion.div>
+            <MetricCard key={s.label} icon={s.icon} value={s.value} label={s.label} index={i} />
           ))}
         </div>
 
-        {/* Trip list */}
         {trips.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {trips.map((trip, i) => (

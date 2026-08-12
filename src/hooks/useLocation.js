@@ -2,10 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { searchLocations } from '../services/locationApi'
 import { useDebounce } from './useDebounce'
 
-/**
- * Debounced location search against Nominatim.
- * Returns { results, loading, error, retry, search }
- */
 export function useLocation(query, { limit = 6, minChars = 2 } = {}) {
   const debounced = useDebounce(query, 350)
   const [results, setResults] = useState([])

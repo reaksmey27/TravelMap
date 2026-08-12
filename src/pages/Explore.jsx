@@ -77,7 +77,6 @@ export default function Explore() {
   return (
     <PageTransition>
       <div className="space-y-8">
-        {/* Header */}
         <header className="text-center sm:text-left">
           <p className="mb-2 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-brand-500">
             <Compass className="h-4 w-4" /> {t('explore.discover')}
@@ -90,12 +89,10 @@ export default function Explore() {
           </p>
         </header>
 
-        {/* Filters */}
         <div className="sticky top-16 z-30 -mx-4 border-b border-sand-200/70 bg-sand-50/90 px-4 py-3 backdrop-blur sm:mx-0 sm:rounded-2xl sm:border sm:px-4">
           <FilterTabs options={CATEGORIES} value={category} onChange={setCategory} />
         </div>
 
-        {/* Grid */}
         <PhotoGrid
           photos={photos}
           loading={loading}
@@ -105,7 +102,6 @@ export default function Explore() {
           skeletonCount={9}
         />
 
-        {/* Load more */}
         {!loading && !error && hasMore && (
           <div className="flex justify-center pt-2">
             <button

@@ -7,7 +7,6 @@ export function pinSvg(color = '#E05A26') {
   </svg>`
 }
 
-/** Destination pin with a soft pulse on hover */
 export function pinIcon({ color = '#E05A26' } = {}) {
   return L.divIcon({
     className: '',
@@ -18,7 +17,6 @@ export function pinIcon({ color = '#E05A26' } = {}) {
   })
 }
 
-/** Circular thumbnail marker for photos */
 export function photoPinIcon(photoUrl, size = 40) {
   const inner = size - 5
   return L.divIcon({
@@ -30,7 +28,6 @@ export function photoPinIcon(photoUrl, size = 40) {
   })
 }
 
-/** Small flat dot marker (used for quiet locations) */
 export function dotIcon(color = '#849C75') {
   return L.divIcon({
     className: '',

@@ -43,7 +43,6 @@ export default function DestinationDetails() {
       try {
         const places = await searchLocations(name, { limit: 3 })
         if (cancelled) return
-        // Prefer a city/town result; fall back to the first place found.
         const place =
           places.find((p) => p.type === 'City' || p.type === 'Town') || places[0]
         if (!place) {
@@ -155,7 +154,6 @@ export default function DestinationDetails() {
       <div className="space-y-10">
         <DestinationHeader destination={destination} />
 
-        {/* Intro + actions */}
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <p className="text-base leading-relaxed text-ink-600">
@@ -173,11 +171,8 @@ export default function DestinationDetails() {
           </div>
         </div>
 
-        {/* Main grid */}
         <div className="grid gap-8 lg:grid-cols-3">
-          {/* Left column */}
           <div className="space-y-10 lg:col-span-2">
-            {/* Gallery */}
             <section aria-label={`${destination.name} ${t('destDetails.gallery')}`}>
               <h2 className="mb-5 font-display text-xl font-bold text-ink-900">
                 {t('destDetails.gallery')}
@@ -195,7 +190,6 @@ export default function DestinationDetails() {
               />
             </section>
 
-            {/* Map */}
             <section aria-label={t('destDetails.onTheMap')}>
               <h2 className="mb-5 font-display text-xl font-bold text-ink-900">{t('destDetails.onTheMap')}</h2>
               <div className="h-96 overflow-hidden rounded-2xl shadow-card">
@@ -210,12 +204,10 @@ export default function DestinationDetails() {
             </section>
           </div>
 
-          {/* Right column */}
           <div className="space-y-6">
             <WeatherCard lat={destination.lat} lon={destination.lon} placeName={destination.name} />
             <CountryInfoCard name={destination.country} code={destination.countryCode} />
 
-            {/* Explore more */}
             <div className="rounded-2xl bg-white p-6 shadow-soft dark:bg-sand-100">
               <h3 className="font-display text-sm font-bold uppercase tracking-wider text-ink-400">
                 {t('destDetails.keepExploring')}

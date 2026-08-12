@@ -6,9 +6,9 @@ const hasId = (list, item) => list.some((x) => x.id === item.id)
 export const useFavoriteStore = create(
   persist(
     (set, get) => ({
-      photos: [], // saved photo objects
-      destinations: [], // saved destination objects
-      trips: [], // saved trip objects
+      photos: [],
+      destinations: [],
+      trips: [],
 
       togglePhoto: (photo) =>
         set((state) => ({
@@ -40,7 +40,6 @@ export const useFavoriteStore = create(
     {
       name: 'travelmap-favorites',
       version: 1,
-      // v1 drops favorites of the old demo photos/destinations/trips.
       migrate: () => ({ photos: [], destinations: [], trips: [] }),
     }
   )

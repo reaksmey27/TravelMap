@@ -5,10 +5,6 @@ import { useLocation } from '../../hooks/useLocation'
 import { useTranslation } from '../../hooks/useTranslation'
 import { cn } from '../../utils/cn'
 
-/**
- * Location search powered by Nominatim (debounced).
- * onSelect(location) receives a normalized { id, name, displayName, lat, lon, city, country, countryCode, type }
- */
 export default function LocationSearch({
   onSelect,
   placeholder,

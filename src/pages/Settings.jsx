@@ -10,6 +10,7 @@ import { useJournalStore } from '../store/journalStore'
 import { useAuthStore } from '../store/authStore'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { useTranslation } from '../hooks/useTranslation'
+import { useImageFallback } from '../hooks/useImageFallback'
 import LanguageSwitcher from '../components/common/LanguageSwitcher'
 import { THEMES, useThemeStore, applyTheme } from '../store/themeStore'
 import { cn } from '../utils/cn'
@@ -74,6 +75,7 @@ export default function Settings() {
   const setTheme = useThemeStore((s) => s.setTheme)
   const [saved, setSaved] = useState(false)
   const [busy, setBusy] = useState(false)
+  const [avatarFailed, setAvatarFailed] = useImageFallback(authUser?.avatar)
   const [prefs, setPrefs] = useLocalStorage('travelmap-preferences', {
     reduceMotion: false,
     emailUpdates: true,
@@ -123,13 +125,18 @@ export default function Settings() {
           <p className="mt-2 text-ink-500">{t('settings.subtitle')}</p>
         </header>
 
-        {/* Account */}
         <Section icon={User} title={t('settings.account')} subtitle={t('settings.accountSub')}>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
               <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-full bg-brand-50 text-brand-500">
-                {authUser?.avatar ? (
-                  <img src={authUser.avatar} alt="" referrerPolicy="no-referrer" className="h-full w-full object-cover" />
+                {authUser?.avatar && !avatarFailed ? (
+                  <img
+                    src={authUser.avatar}
+                    alt=""
+                    referrerPolicy="no-referrer"
+                    onError={() => setAvatarFailed(true)}
+                    className="h-full w-full object-cover"
+                  />
                 ) : (
                   <User className="h-5 w-5" />
                 )}
@@ -154,7 +161,6 @@ export default function Settings() {
           </p>
         </Section>
 
-        {/* Profile form */}
         <Section icon={User} title={t('settings.profile')} subtitle={t('settings.profileSub')}>
           <form onSubmit={saveProfile} className="space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
@@ -221,7 +227,6 @@ export default function Settings() {
           </form>
         </Section>
 
-        {/* Preferences */}
         <Section icon={SlidersHorizontal} title={t('settings.preferences')} subtitle={t('settings.prefsSub')}>
           <div className="divide-y divide-sand-100">
             <Toggle
@@ -242,7 +247,6 @@ export default function Settings() {
           </div>
         </Section>
 
-        {/* Theme */}
         <Section icon={Moon} title={t('theme.label')} subtitle={t('settings.prefsSub')}>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <p className="text-sm font-medium text-ink-700">{t('theme.label')}</p>
@@ -253,7 +257,7 @@ export default function Settings() {
                   type="button"
                   onClick={() => {
                     setTheme(id)
-                    applyTheme(id) // apply immediately, no re-render wait
+                    applyTheme(id)
                   }}
                   aria-pressed={theme === id}
                   className={cn(
@@ -270,7 +274,6 @@ export default function Settings() {
           </div>
         </Section>
 
-        {/* Language */}
         <Section icon={Globe} title={t('language.label')} subtitle={t('settings.prefsSub')}>
           <div className="flex items-center justify-between gap-4">
             <p className="text-sm font-medium text-ink-700">{t('language.label')}</p>
@@ -278,7 +281,6 @@ export default function Settings() {
           </div>
         </Section>
 
-        {/* Data */}
         <Section icon={Database} title={t('settings.data')} subtitle={t('settings.dataSub')}>
           <div className="space-y-3">
             <button
