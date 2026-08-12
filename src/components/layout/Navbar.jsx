@@ -52,6 +52,7 @@ export default function Navbar() {
   }, [menuOpen])
 
   const handleSignOut = async () => {
+    if (!window.confirm(t('common.confirmSignOut'))) return
     setMenuOpen(false)
     try {
       await signOut()

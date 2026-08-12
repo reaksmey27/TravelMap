@@ -148,6 +148,7 @@ export default function Settings() {
             </div>
             <button
               onClick={async () => {
+                if (!window.confirm(t('common.confirmSignOut'))) return
                 await signOut()
                 navigate('/')
               }}
