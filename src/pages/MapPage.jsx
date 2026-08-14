@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight, Backpack, Camera, Layers, MapPin, Navigation, X } from 'lucide-react'
-import MapView from '../components/map/MapView'
+import MapView, { isOutlineable } from '../components/map/MapView'
 import MapPopup from '../components/map/MapPopup'
 import LocationSearch from '../components/map/LocationSearch'
 import { pinIcon, photoPinIcon } from '../components/map/markers'
@@ -137,7 +137,9 @@ export default function MapPage() {
 
   const onSearchSelect = (loc) => {
     setSelected(loc)
-    setFlyTo({ center: [loc.lat, loc.lon], zoom: 12 })
+    // With an outlineable boundary polygon, FitToBounds in MapView handles
+    // the zoom. Otherwise fly to the point so POIs still navigate.
+    if (!isOutlineable(loc.boundary)) setFlyTo({ center: [loc.lat, loc.lon], zoom: 12 })
     setViewMode('trips')
   }
 
@@ -150,6 +152,8 @@ export default function MapPage() {
         zoom={5}
         flyTo={flyTo}
         markers={markers}
+        boundary={selected?.boundary}
+        boundaryKey={selected?.id}
         onMapClick={onMapClick}
         onLocate={onLocate}
         layerSwitcherClassName="right-3 top-1/2 -translate-y-1/2"

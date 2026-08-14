@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet'
+import { GeoJSON, MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet'
+import L from 'leaflet'
 import MarkerClusterGroup from 'react-leaflet-cluster'
 import { LocateFixed, Loader2, Map as MapIcon, Minus, Plus, Satellite } from 'lucide-react'
 import 'leaflet/dist/leaflet.css'
@@ -31,6 +32,37 @@ function FlyTo({ target }) {
     map.flyTo([lat, lng], target.zoom ?? Math.max(map.getZoom(), 10), { duration: 1 })
   }, [target?.center?.[0], target?.center?.[1], target?.zoom])
   return null
+}
+
+function FitToBounds({ boundary }) {
+  const map = useMap()
+  useEffect(() => {
+    if (!boundary) return
+    const layer = L.geoJSON(boundary)
+    const bounds = layer.getBounds()
+    if (bounds.isValid()) {
+      map.flyToBounds(bounds, { padding: [48, 48], duration: 0.9, maxZoom: 13 })
+    }
+  }, [boundary, map])
+  return null
+}
+
+// Outline around the selected region/country/city: a dashed brand-colored
+// line with a barely-there fill so the map stays readable underneath.
+const BOUNDARY_STYLE = {
+  color: '#E05A26',
+  weight: 2.5,
+  opacity: 0.9,
+  dashArray: '6 4',
+  fillColor: '#E05A26',
+  fillOpacity: 0.08,
+}
+
+// Only polygon-ish geometries outline a place; Points (POIs, streets) would
+// just draw a meaningless dot.
+export function isOutlineable(boundary) {
+  const type = boundary?.type === 'Feature' ? boundary.geometry?.type : boundary?.type
+  return type === 'Polygon' || type === 'MultiPolygon'
 }
 
 function LayerSwitcher({ value, onChange }) {
@@ -132,6 +164,8 @@ export default function MapView({
   center,
   zoom = 4,
   flyTo,
+  boundary,
+  boundaryKey,
   markers = [],
   cluster = true,
   onMapClick,
@@ -163,6 +197,15 @@ export default function MapView({
 
         <ClickHandler onMapClick={onMapClick} />
         <FlyTo target={flyTo} />
+
+        {isOutlineable(boundary) && (
+          <>
+            <FitToBounds boundary={boundary} />
+            {/* react-leaflet's GeoJSON doesn't redraw when `data` changes, so
+                remount it per boundary (key = selected place id). */}
+            <GeoJSON key={boundaryKey} data={boundary} style={BOUNDARY_STYLE} />
+          </>
+        )}
 
         {children}
 

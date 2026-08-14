@@ -1,9 +1,20 @@
 import { motion } from 'framer-motion'
 import { CalendarDays, MapPin } from 'lucide-react'
+import { formatShortDate } from '../../utils/format'
 import { useTranslation } from '../../hooks/useTranslation'
 
-function DayBlock({ day, places }) {
-  const { t } = useTranslation()
+function DayBlock({ day, places, startDate }) {
+  const { t, lang } = useTranslation()
+
+  let dateStr = ''
+  if (startDate) {
+    const s = new Date(startDate)
+    if (!Number.isNaN(s.getTime())) {
+      const d = new Date(s.getTime() + (day - 1) * 86400000)
+      dateStr = d.toISOString().slice(0, 10)
+    }
+  }
+
   return (
     <motion.li
       initial={{ opacity: 0, x: -12 }}
@@ -19,15 +30,17 @@ function DayBlock({ day, places }) {
         <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-600">
           <CalendarDays className="h-3.5 w-3.5" />
           {t('tripTimeline.day', { day })}
+          {dateStr && (
+            <span className="ml-auto text-xs font-medium normal-case tracking-normal text-ink-400">
+              {formatShortDate(dateStr, lang)}
+            </span>
+          )}
         </p>
         <ul className="mt-3 space-y-2.5">
-          {places.map((p) => (
-            <li key={p.name} className="flex items-center gap-2.5 text-sm text-ink-700">
+          {places.map((p, i) => (
+            <li key={`${p.name}-${i}`} className="flex items-center gap-2.5 text-sm text-ink-700">
               <MapPin className="h-4 w-4 shrink-0 text-ink-400" />
               <span className="font-medium">{p.name}</span>
-              <span className="ml-auto text-xs text-ink-400">
-                {p.lat?.toFixed(2)}, {p.lon?.toFixed(2)}
-              </span>
             </li>
           ))}
         </ul>
@@ -36,7 +49,7 @@ function DayBlock({ day, places }) {
   )
 }
 
-export default function TripTimeline({ locations }) {
+export default function TripTimeline({ locations, startDate }) {
   const { t } = useTranslation()
   if (!locations?.length) {
     return (
@@ -60,7 +73,7 @@ export default function TripTimeline({ locations }) {
   return (
     <ol className="relative ml-3.5 border-l-2 border-brand-200/70">
       {days.map((day) => (
-        <DayBlock key={day} day={day} places={byDay[day]} />
+        <DayBlock key={day} day={day} places={byDay[day]} startDate={startDate} />
       ))}
     </ol>
   )

@@ -65,7 +65,9 @@ export default function DestinationDetails() {
           if (!cancelled) {
             setPhotos(data.photos)
             if (data.photos[0]) {
-              setDestination((d) => ({ ...d, image: data.photos[0].thumb, photoCount: data.photos.length }))
+              // Use the high-res (regular/large) URL — the thumbnail is ~400px
+              // and gets upscaled into a full-width header, which looks blurry.
+              setDestination((d) => ({ ...d, image: data.photos[0].url, photoCount: data.photos.length }))
             }
           }
         } catch (err) {

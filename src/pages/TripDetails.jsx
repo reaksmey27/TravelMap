@@ -2,20 +2,23 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Polyline } from 'react-leaflet'
-import { ArrowLeft, Backpack, Calendar, MapPin, Pencil, Trash2 } from 'lucide-react'
+import { ArrowLeft, Backpack, BookOpen, Calendar, CalendarDays, MapPin, Pencil, Trash2 } from 'lucide-react'
 import PageTransition from '../components/common/PageTransition'
 import TripForm from '../components/trips/TripForm'
 import TripTimeline from '../components/trips/TripTimeline'
 import MapView from '../components/map/MapView'
 import MapPopup from '../components/map/MapPopup'
 import { pinIcon, photoPinIcon } from '../components/map/markers'
+import { tripDays, tripStatus, STATUS_STYLES } from '../components/trips/TripCard'
+import StatCard from '../components/common/StatCard'
 import FavoriteButton from '../components/common/FavoriteButton'
 import ErrorState from '../components/common/ErrorState'
 import EmptyState from '../components/common/EmptyState'
 import { useTripStore } from '../store/tripStore'
 import { useJournalStore } from '../store/journalStore'
 import { useTranslation } from '../hooks/useTranslation'
-import { formatRange, formatNumber } from '../utils/format'
+import { formatRange, formatNumber, formatDate } from '../utils/format'
+import { cn } from '../utils/cn'
 
 export default function TripDetails() {
   const { t, lang } = useTranslation()
@@ -32,6 +35,9 @@ export default function TripDetails() {
     () => entries.filter((e) => e.tripId === id),
     [entries, id]
   )
+
+  const days = tripDays(trip)
+  const status = tripStatus(trip)
 
   if (!trip) {
     return (
@@ -102,7 +108,15 @@ export default function TripDetails() {
         </button>
 
         <div className="relative overflow-hidden rounded-3xl shadow-card">
-          <img src={trip.coverImage} alt={trip.title} className="h-64 w-full object-cover sm:h-80" />
+          {trip.coverImage ? (
+            <img src={trip.coverImage} alt={trip.title} className="h-64 w-full object-cover sm:h-80" />
+          ) : (
+            <div className="grid h-64 w-full place-items-center bg-gradient-to-br from-brand-500/90 to-sage-500/80 sm:h-80">
+              <span className="font-display text-6xl font-extrabold text-white/90">
+                {(trip.destination || trip.title || '?').charAt(0).toUpperCase()}
+              </span>
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-ink-900/85 via-ink-900/30 to-ink-900/10 dark:from-ink-950/85 dark:via-ink-950/30 dark:to-ink-950/10" />
           <div className="absolute right-4 top-4 flex items-center gap-2">
             <FavoriteButton type="trip" item={trip} />
@@ -129,9 +143,24 @@ export default function TripDetails() {
               {trip.title}
             </h1>
             <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
+              {status && (
+                <span
+                  className={cn(
+                    'inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 font-semibold shadow-soft backdrop-blur',
+                    STATUS_STYLES[status]
+                  )}
+                >
+                  {t(`tripCard.${status}`)}
+                </span>
+              )}
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-white backdrop-blur">
                 <Calendar className="h-4 w-4" /> {formatRange(trip.startDate, trip.endDate, lang)}
               </span>
+              {days && (
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-white backdrop-blur">
+                  <CalendarDays className="h-4 w-4" /> {t('tripCard.days', { count: days })}
+                </span>
+              )}
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-white backdrop-blur">
                 <MapPin className="h-4 w-4" /> {t('tripDetails.placeCount', { count: trip.locations.length })}
               </span>
@@ -145,6 +174,13 @@ export default function TripDetails() {
         {trip.description && (
           <p className="max-w-3xl leading-relaxed text-ink-600">{trip.description}</p>
         )}
+
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <StatCard icon={CalendarDays} value={days ?? '–'} label={t('tripDetails.days')} accent />
+          <StatCard icon={MapPin} value={trip.locations.length} label={t('common.places')} />
+          <StatCard icon={Camera} value={trip.photos.length} label={t('common.photos')} />
+          <StatCard icon={BookOpen} value={relatedEntries.length} label={t('tripDetails.journalEntries')} />
+        </div>
 
         <AnimatePresence>
           {editing && (
@@ -191,7 +227,7 @@ export default function TripDetails() {
 
           <section aria-label={t('tripDetails.timeline')}>
             <h2 className="mb-5 font-display text-xl font-bold text-ink-900">{t('tripDetails.timeline')}</h2>
-            <TripTimeline locations={trip.locations} />
+            <TripTimeline locations={trip.locations} startDate={trip.startDate} />
           </section>
         </div>
 
@@ -220,6 +256,11 @@ export default function TripDetails() {
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
+                  <span className="absolute inset-0 flex items-end justify-end bg-gradient-to-t from-ink-900/60 via-transparent to-transparent p-3 opacity-0 transition group-hover:opacity-100">
+                    <span className="rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-ink-700">
+                      {formatNumber(i + 1)} / {formatNumber(photos.length)}
+                    </span>
+                  </span>
                 </motion.button>
               ))}
             </div>
@@ -251,10 +292,17 @@ export default function TripDetails() {
                       <Backpack className="h-5 w-5" />
                     </span>
                   )}
-                  <span>
+                  <span className="min-w-0">
                     <span className="block font-display font-bold text-ink-900">{e.title}</span>
-                    <span className="block text-xs text-ink-400">{e.location || trip.destination}</span>
+                    <span className="mt-0.5 block truncate text-xs text-ink-400">
+                      {e.location || trip.destination}
+                    </span>
                   </span>
+                  {e.date && (
+                    <span className="ml-auto shrink-0 text-xs font-medium text-ink-400">
+                      {formatDate(e.date, lang)}
+                    </span>
+                  )}
                 </Link>
               ))}
             </div>

@@ -249,6 +249,11 @@ export const translations = {
 
     'tripCard.places': '{count} Places',
     'tripCard.photos': '{count} Photos',
+    'tripCard.days': '{count} days',
+    'tripCard.upcoming': 'Upcoming',
+    'tripCard.ongoing': 'Ongoing',
+    'tripCard.past': 'Past',
+    'tripCard.more': '+{count}',
     'tripForm.tripName': 'Trip Name',
     'tripForm.destination': 'Destination',
     'tripForm.startDate': 'Start Date',
@@ -286,6 +291,7 @@ export const translations = {
     'tripDetails.placeCount': '{count} Places',
     'tripDetails.photoCount': '{count} Photos',
     'tripDetails.photoLabel': 'Photo {n}',
+    'tripDetails.days': 'Days',
 
     'journal.eyebrow': 'Words from the road',
     'journal.title': 'Journal',
@@ -675,6 +681,11 @@ export const translations = {
 
     'tripCard.places': 'ទីកន្លែង {count}',
     'tripCard.photos': 'រូបថត {count}',
+    'tripCard.days': 'ថ្ងៃ {count}',
+    'tripCard.upcoming': 'នាពេលខាងមុខ',
+    'tripCard.ongoing': 'កំពុងធ្វើដំណើរ',
+    'tripCard.past': 'បានបញ្ចប់',
+    'tripCard.more': '+{count}',
     'tripForm.tripName': 'ឈ្មោះដំណើរកម្សាន្ត',
     'tripForm.destination': 'គោលដៅ',
     'tripForm.startDate': 'ថ្ងៃចាប់ផ្តើម',
@@ -711,6 +722,7 @@ export const translations = {
     'tripDetails.placeCount': 'ទីកន្លែង {count}',
     'tripDetails.photoCount': 'រូបថត {count}',
     'tripDetails.photoLabel': 'រូបថត {n}',
+    'tripDetails.days': 'ថ្ងៃ',
 
     'journal.eyebrow': 'ពាក្យពីផ្លូវ',
     'journal.title': 'កំណត់ហេតុ',

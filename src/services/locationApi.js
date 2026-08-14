@@ -20,6 +20,13 @@ const TYPE_LABELS = {
   suburb: 'Neighborhood',
 }
 
+// Ask Nominatim for the place's boundary geometry, simplified so large
+// countries/regions stay small (0.02° tolerance ≈ ~2 km).
+const POLYGON_PARAMS = {
+  polygon_geojson: 1,
+  polygon_threshold: 0.02,
+}
+
 function normalizeResult(item) {
   const addr = item.address || {}
   const city =
@@ -35,6 +42,7 @@ function normalizeResult(item) {
     country,
     countryCode: (addr.country_code || '').toUpperCase(),
     type: TYPE_LABELS[item.type] || 'Place',
+    boundary: item.geojson || null,
   }
 }
 
@@ -48,6 +56,7 @@ export async function searchLocations(query, { limit = 6 } = {}) {
         addressdetails: 1,
         limit,
         'accept-language': 'en',
+        ...POLYGON_PARAMS,
       },
     })
     const results = res.data
@@ -66,7 +75,12 @@ export async function reverseGeocode(lat, lon) {
       lon,
       format: 'jsonv2',
       addressdetails: 1,
+      // Return the boundary of the city/town that contains the click (zoom
+      // 10 = city level), not the nearest street/POI, so a click highlights
+      // the place itself with a line around it.
+      zoom: 10,
       'accept-language': 'en',
+      ...POLYGON_PARAMS,
     },
   })
   const data = res.data
